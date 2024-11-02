@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mail
+    username: root
+    password: mail
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  # 이메일 인증 부분
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: # {{ 이메일 계정 }}
+    password: # {{ 앱 생성 시 발급되는 비밀번호 }}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    auth-code-expiration-millis: 1800000
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hbm2ddl.auto: create
+      format_sql: true
+      naming:
+        physical-strategy: com.aaa.admin.config.NamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+      defer-datasource-initialization: true
+    logging:
+      level:
+        org.hibernate.SQL: debug
+        org.hibernate.type: trace
