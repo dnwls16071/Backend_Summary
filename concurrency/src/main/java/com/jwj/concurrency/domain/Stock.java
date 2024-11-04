@@ -22,7 +22,7 @@ public class Stock {
 	private Long version;
 
 	// 도메인 측 재고 감소 로직
-	public void decrease(Long productId, Long quantity) {
+	public void decrease(Long quantity) {
 		if (this.quantity - quantity < 0) {
 			throw new RuntimeException("재고가 부족합니다.");
 		}

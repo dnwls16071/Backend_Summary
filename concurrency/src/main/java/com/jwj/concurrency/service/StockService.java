@@ -19,7 +19,7 @@ public class StockService {
 	 */
 	public synchronized void decrease(Long productId, Long quantity) {
 		Stock stock = stockRepository.findById(productId).orElseThrow();
-		stock.decrease(productId, quantity);
+		stock.decrease(quantity);
 		stockRepository.saveAndFlush(stock);
 	}
 }
