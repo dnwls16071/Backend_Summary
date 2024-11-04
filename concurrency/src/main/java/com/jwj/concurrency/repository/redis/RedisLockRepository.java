@@ -1,4 +1,4 @@
-package com.jwj.concurrency.repository;
+package com.jwj.concurrency.repository.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

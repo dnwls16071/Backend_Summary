@@ -1,6 +1,6 @@
-package com.jwj.concurrency.facade;
+package com.jwj.concurrency.facade.lettuce;
 
-import com.jwj.concurrency.repository.RedisLockRepository;
+import com.jwj.concurrency.repository.redis.RedisLockRepository;
 import com.jwj.concurrency.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

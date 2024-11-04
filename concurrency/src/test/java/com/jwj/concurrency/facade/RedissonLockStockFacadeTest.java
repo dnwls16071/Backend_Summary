@@ -1,6 +1,7 @@
 package com.jwj.concurrency.facade;
 
 import com.jwj.concurrency.domain.Stock;
+import com.jwj.concurrency.facade.redisson.RedissonLockStockFacade;
 import com.jwj.concurrency.repository.StockRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class RedissonLockStockFacadeTest {

@@ -1,4 +1,4 @@
-package com.jwj.concurrency.facade;
+package com.jwj.concurrency.facade.redisson;
 
 import com.jwj.concurrency.service.StockService;
 import org.redisson.api.RLock;
