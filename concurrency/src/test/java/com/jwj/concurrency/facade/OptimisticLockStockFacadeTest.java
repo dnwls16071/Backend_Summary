@@ -1,8 +1,8 @@
 package com.jwj.concurrency.facade;
 
 import com.jwj.concurrency.domain.Stock;
+import com.jwj.concurrency.facade.optimistic.OptimisticLockStockFacade;
 import com.jwj.concurrency.repository.StockRepository;
-import com.jwj.concurrency.service.OptimisticLockStockService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,8 +33,8 @@ class OptimisticLockStockFacadeTest {
 	}
 
 	@Test
-	@DisplayName("동시에 여러 요청을 통한 상품 주문시 수량만큼의 재고 감소가 이루어진다.(낙관적 락)")
-	void 동시에_여러_요청을_통한_상품_주문시_수량만큼의_재고_감소가_이루어진다() throws InterruptedException {
+	@DisplayName("동시에 여러 요청을 통한 상품 주문시 요청만큼의 재고 감소가 이루어진다. - 낙관적 락 도입")
+	void 동시에_여러_요청을_통한_상품_주문시_요청만큼의_재고_감소가_이루어진다() throws InterruptedException {
 		int threadCount = 100;
 		ExecutorService executorService = Executors.newFixedThreadPool(32);
 		CountDownLatch latch = new CountDownLatch(threadCount);
