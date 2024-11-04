@@ -1,7 +1,7 @@
-package com.jwj.concurrency.facade;
+package com.jwj.concurrency.facade.namedlock;
 
-import com.jwj.concurrency.repository.LockRepository;
-import com.jwj.concurrency.service.NamedLockStockService;
+import com.jwj.concurrency.repository.namedlock.LockRepository;
+import com.jwj.concurrency.service.namedlock.NamedLockStockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
