@@ -33,7 +33,7 @@ class OptimisticLockStockFacadeTest {
 	}
 
 	@Test
-	@DisplayName("동시에 여러 요청을 통한 상품 주문시 수량만큼의 재고 감소가 이루어진다.(비관적 락)")
+	@DisplayName("동시에 여러 요청을 통한 상품 주문시 수량만큼의 재고 감소가 이루어진다.(낙관적 락)")
 	void 동시에_여러_요청을_통한_상품_주문시_수량만큼의_재고_감소가_이루어진다() throws InterruptedException {
 		int threadCount = 100;
 		ExecutorService executorService = Executors.newFixedThreadPool(32);
