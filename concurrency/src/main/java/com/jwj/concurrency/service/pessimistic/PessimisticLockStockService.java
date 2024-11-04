@@ -1,4 +1,4 @@
-package com.jwj.concurrency.service;
+package com.jwj.concurrency.service.pessimistic;
 
 import com.jwj.concurrency.domain.Stock;
 import com.jwj.concurrency.repository.StockRepository;
