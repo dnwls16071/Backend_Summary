@@ -73,7 +73,7 @@ docker run -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -v /Users/jwj/Desktop/�
 -----------------------
 </details>
 
-### ✅Docker Compose
+### ✅Dockerfile
 
 <details>
    <summary> 정리한 내용 보기 (👈 Click)</summary>
@@ -113,7 +113,213 @@ COPY My-App.txt /My-App.txt
 ENTRYPOINT ["/bin/bash", "-c", "sleep 500"]
 ```
 
+#### RUN vs ENTRYPOINT
 
+* RUN 명령어는 이미지 생성 과정에서 필요한 명령어를 실행시킬 때 사용한다.
+* ENTRYPOINT 명령어는 생성된 이미지를 기반으로 컨테이너를 생성한 직후에 명령어를 실행시킬 때 사용한다.
+
+#### WORKDIR : 컨테이너 내부에서 작업할 디렉터리 지정
+
+* WORKDIR로 작업 디렉터리를 전환하면 그 이후에 등장하는 모든 RUN, CMD, ENTRYPOINT, COPY, ADD 등의 명령문은 해당 디렉터리를 기준으로 실행된다.
+
+#### EXPOSE : 컨테이너 내부에서 사용 중인 포트를 문서화하기
+
+```dockerfile
+EXPOSE [포트 번호]
+```
 
 -----------------------
 </details>
+
+### ✅Docker를 사용하여 백엔드(SpringBoot) 프로젝트를 실행시키기[프로젝트 목적]
+
+<details>
+   <summary> 정리한 내용 보기 (👈 Click)</summary>
+<br />
+
+* 호스트 컴퓨터에서 스프링 애플리케이션을 띄우는 것이 아니라 호스트 컴퓨터 내부의 컨테이너에 띄운다는 것이다.
+* Dockerfile을 만들고 빌드된 파일을 컨테이너 내부로 복사할 수 있도록 하는 이미지를 만들어야 한다.
+* 따라서 Dockerfile을 아래와 같이 작성한다.
+
+```dockerfile
+FROM openjdk:21-jdk
+
+COPY /build/libs/*SNAPSHOT.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+```
+
+[img_2](image/img_2.png)
+
+* 주의사항은 바로 컨테이너를 실행시키는 순간에 있다. 클라이언트가 호스트 컴퓨터에 요청을 보내면 당연히 되겠지만 지금은 컨테이너 내부에서 스프링 애플리케이션이 실행되고 있는 상황이다.
+* 별도의 설정을 해주지 않으면 당연히 클라이언트가 도커 컨테이너 내부에 직접 접속하는 것은 불가능하다.
+* 따라서, 호스트 컴퓨터의 8080번 포트와 도커 컨테이너 내부에서 실행되는 스프링 애플리케이션 8080번 포트를 바인딩시켜서 컨테이너를 실행시켜준다.
+* 로그를 살펴보면 빌드된 파일이 성공적으로 실행되면서 컨테이너 내부에서 스프링 애플리케이션이 잘 실행되는 것을 볼 수 있다.
+
+```dockerfile
+docker run -d -p 8080:8080 hello_server
+```
+
+[img_3](image/img_3.png)
+
+-----------------------
+</details>
+
+### ✅Docker를 사용하여 프론트엔드(Next.js) 프로젝트를 배포하기[프로젝트 목적]
+
+<details>
+   <summary> 정리한 내용 보기 (👈 Click)</summary>
+<br />
+
+```dockerfile
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+RUN npm run build
+
+EXPOSE 3000
+
+ENTRYPOINT ["npm", "run", "start"]
+```
+
+* 이 때, node_modules 파일은 `.dockerignore` 파일에 등록하여 버전 관리가 되지 않도록 한다.
+
+-----------------------
+</details>
+
+### ✅Docker Compose
+
+<details>
+   <summary> 정리한 내용 보기 (👈 Click)</summary>
+<br />
+
+* Docker Compose는 여러 개의 컨테이너들을 하나의 서비스로 정의하고 구성해 하나의 묶음으로 관리할 수 있게 도와주는 툴이다.
+* Docker Compose를 사용하는 이유 정리
+
+  * 여러 개의 컨테이너를 관리하는 데 용이 : 여러 개의 컨테이너로 이루어진 복잡한 애플리케이션을 한 번에 관리할 수 있게 도와준다. 여러 컨테이너를 하나의 환경에서 실행하고 관리하는 데 도움이 된다.
+  * 복잡한 명령어로 실행시키던 걸 간소화
+
+-----------------------
+</details>
+
+### ✅Docker Compose CLI
+
+<details>
+   <summary> 정리한 내용 보기 (👈 Click)</summary>
+<br />
+
+#### docker-compose.yml 파일에 정의한 내용을 기반으로 컨테이너 실행시키기
+
+```dockerfile
+docker compose up       # 포그라운드에서 실행
+docker compose up -d    # 백그라운드에서 실행        
+```
+
+#### Docker Compose로 실행시킨 컨테이너 확인하기
+
+```dockerfile
+docker compose ps       # 실행 중인 컨테이너 확인
+docker compose ps -a    # 종료된 컨테이너 포함해서 전체 확인       
+```
+
+#### Docker Compose log 확인하기
+
+```dockerfile
+docker compose logs
+```
+
+#### 컨테이너 실행하기 전에 이미지 재빌드하기
+
+```dockerfile
+docker compose up --build       # 포그라운드에서 재빌드 실행하기
+docker compose up -d --build    # 백그라운드에서 재빌드 실행하기
+```
+
+#### 도커 이미지 다운받기
+
+```dockerfile
+docker compose pull
+```
+
+#### 도커 컨테이너 종료하기
+
+```dockerfile
+docker compose down
+```
+
+-----------------------
+</details>
+
+### ✅예시를 통한 Docker Compose & application.yml 이해
+
+<details>
+   <summary> 정리한 내용 보기 (👈 Click)</summary>
+<br />
+
+```dockerfile
+FROM openjdk:17-jdk
+
+COPY build/libs/*SNAPSHOT.jar /app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+```
+
+```yaml
+services:
+  spring:
+    build: .  # Dockerfile 위치와 같은 기준
+    ports:
+      - "8080:8080"
+    # 주의 사항 : SpringBoot 애플리케이션이 실행되기 전에 먼저 MySQL 서버가 실행되어야 한다.
+    # depends_on 옵션을 사용한다.
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping"]   # MySQL이 정상적으로 실행되는지를 확인    
+      interval: 5s                          # 주기는 5초에 한 번 
+      retries: 10                           # 최대 10번 재시도
+```
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mydb
+    username: root
+    password: pwd1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+```
+
+-----------------------
+</details>
+
+### ✅AWS EC2에서 Docker를 활용해 배포하기
+
