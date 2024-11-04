@@ -1,9 +1,6 @@
 package com.jwj.concurrency.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +16,10 @@ public class Stock {
 	private Long productId;
 
 	private Long quantity;
+
+	// 낙관적 락을 사용하기 위한 버전 필드 추가
+	@Version
+	private Long version;
 
 	// 도메인 측 재고 감소 로직
 	public void decrease(Long productId, Long quantity) {
