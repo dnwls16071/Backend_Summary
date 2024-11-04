@@ -33,8 +33,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	// https://mvnrepository.com/artifact/org.redisson/redisson
-	implementation group: 'org.redisson', name: 'redisson', version: '3.38.1'
+	implementation 'org.redisson:redisson-spring-boot-starter:3.22.1'
 }
 
 tasks.named('test') {
