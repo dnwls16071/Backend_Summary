@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 class StockServiceTest {
 
 	@Autowired
-	private StockService stockService;
+	private PessimisticLockStockService stockService;
 
 	@Autowired
 	private StockRepository stockRepository;
@@ -44,8 +44,8 @@ class StockServiceTest {
 	}
 
 	@Test
-	@DisplayName("동시에 여러 요청을 통한 상품 주문시 수량만큼의 재고 감소가 이루어지지 않는다.")
-	void 동시에_여러_요청을_통한_상품_주문시_수량만큼의_재고_감소가_이루어지지_않아야_한다() throws InterruptedException {
+	@DisplayName("동시에 여러 요청을 통한 상품 주문시 수량만큼의 재고 감소가 이루어진다.(비관적 락)")
+	void 동시에_여러_요청을_통한_상품_주문시_수량만큼의_재고_감소가_이루어진다() throws InterruptedException {
 		int threadCount = 100;
 		ExecutorService executorService = Executors.newFixedThreadPool(32);
 		CountDownLatch latch = new CountDownLatch(threadCount);
@@ -63,7 +63,9 @@ class StockServiceTest {
 		latch.await();
 		Stock stock = stockRepository.findById(1L).orElseThrow();
 
-		// 100개의 요청이 동시에 들어왔지만 재고가 100개 이상이 되지 않는다.
+		/*
+		 * 비관적 락을 사용하는 경우 -> @Lock(LockModeType.PESSIMISTIC_WRITE) 및 @Transactional 어노테이션 적용
+		 */
 		assertThat(stock.getQuantity()).isEqualTo(0L);
 	}
 }
