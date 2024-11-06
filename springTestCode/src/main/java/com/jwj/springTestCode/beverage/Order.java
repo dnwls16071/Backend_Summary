@@ -1,6 +1,5 @@
-package com.jwj.springTestCode.order;
+package com.jwj.springTestCode.beverage;
 
-import com.jwj.springTestCode.beverage.Beverage;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

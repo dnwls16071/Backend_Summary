@@ -1,7 +1,7 @@
 package com.jwj.springTestCode;
 
 import com.jwj.springTestCode.beverage.Beverage;
-import com.jwj.springTestCode.order.Order;
+import com.jwj.springTestCode.beverage.Order;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
