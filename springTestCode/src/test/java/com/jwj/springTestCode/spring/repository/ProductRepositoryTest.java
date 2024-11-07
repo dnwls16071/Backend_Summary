@@ -43,4 +43,26 @@ class ProductRepositoryTest {
 						tuple("002", "카페라떼", HOLD)
 				);
 	}
+
+	@DisplayName("상품번호 리스트로 상품들을 조회한다.")
+	@Test
+	void findAllByProductNumberIn() {
+		// given
+		Product product1 = Product.createProduct("001", HANDMADE, SELLING, "아메리카노", 4000);
+		Product product2 = Product.createProduct("002", HANDMADE, HOLD, "카페라떼", 4500);
+		Product product3 = Product.createProduct("003", HANDMADE, STOP_SELLING, "팥빙수", 5000);
+
+		productRepository.saveAll(List.of(product1, product2, product3));
+
+		// when
+		List<Product> products = productRepository.findAllByProductNumberIn(List.of("001", "002"));
+
+		// then
+		assertThat(products).hasSize(2)
+				.extracting("productNumber", "name", "sellingStatus")
+				.containsExactlyInAnyOrder(
+						tuple("001", "아메리카노", SELLING),
+						tuple("002", "카페라떼", HOLD)
+				);
+	}
 }
