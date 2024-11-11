@@ -211,51 +211,26 @@ jobs:
 
 [img.png](image/img_6.png)
 
-#### CodeDeploy 역할 생성하기
+#### CodeDeploy에 대한 역할을 생성하기
 
-* CodeDeploy가 다른 AWS 자원에 접근하기 위해선 권한이 필요하다. 그 권한을 부여해주는 기능이 바로 IAM의 역할이다.
+[img.png](image/img_8.png)
 
+#### CodeDeploy 애플리케이션과 배포 그룹 생성하기
 
-* 체크할 부분
+[img.png](image/img_9.png)
 
-  * 서비스 또는 사용 사례 : CodeDeploy
+#### EC2에 대한 역할 생성하기
 
-#### CodeDeploy 애플리케이션 및 배포 그룹 생성하기
+* EC2에 왜 역할이 필요한가?
+* EC2는 AWS S3에 저장된 빌드 파일을 가져와야 하기 때문에 S3에 접근할 수 있는 권한이 필요하다.
+* 따라서 EC2에 대한 역할을 생성해야 한다.
 
-* 체크할 부분
+[img.png](image/img_10.png)
 
-  * 애플리케이션 이름 : actions-server
-  * 컴퓨팅 플랫폼 : EC2/온프레미스
-  * 배포 그룹 이름 : production
-  * 서비스 역할 입력 : CodeDeploy 역할
-  * 배포 유형 : 현재 위치
-  * 환경 구성 : Amazon EC2 인스턴스
-  * 배포 설정 : CodeDeployDefault.AllAtOnce & 로드 밸런서 비활성화
+[img.png](image/img_11.png)
 
-#### EC2 역할 생성하기
+#### Code Deploy Agent 설치하기
 
-* 현재 아키텍처를 보면 EC2가 빌드된 파일이 담겨 있는 S3에 접근해야 한다. 그러려면 역시 권한이 필요하다.
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "s3:Get*",
-                "s3:List*"
-            ],
-            "Effect": "Allow",
-            "Resource": "*"
-        }
-    ]
-}
-```
-* EC2에 생성한 IAM 역할을 연결한다.
-
-#### Code Deploy Agent
-
-* Code Deploy Agent가 다른 AWS 자원에 접근하려면 권한이 필요하다.
 ```shell
 $ sudo apt update && \
 sudo apt install -y ruby-full wget && \
@@ -265,78 +240,25 @@ chmod +x ./install && \
 sudo ./install auto
 ```
 
-* Code Deploy Agent가 정상적으로 설치됐는지 확인하기
+#### Code Deploy Agent가 정상적으로 작동하고 있는지 확인하기
 
 ```shell
 $ systemctl status codedeploy-agent
 ```
 
-#### Github Actions가 CodeDeploy, S3에 접근할 수 있게 사용자 IAM을 발급
+#### Github Actions가 AWS S3, Code Deploy에 접근할 수 있도록 권한을 지정하기
 
-* IAM 사용자가 CodeDeploy, S3에 접근하려면 권한이 필요하다. 이 때 필요한 권한은 다음과 같이 2개가 있다.
-* CodeDeploy에 접근하는 권한인 `AWSCodeDeployFullAccess`, 그리고 S3에 접근하는 권한인 `AmazonS3FullAccess`가 있다.
-* 보안 자격 증명에서 액세스 키와 비밀 액세스 키를 발급받아 잘 저장한다.
-* Github Actions에서 사용할 수 있도록 액세스 키와 비밀 액세스 키를 Secret Variable로 등록한다.
+[img.png](image/img_12.png)
 
-#### 배포 전에 빌드된 파일이 저장될 S3 버킷 생성하기
+#### 생성된 사용자의 보안 자격 증명에서 AWS Access Key, AWS Secret Key를 발급받아 Github Repository Secret 변수에 저장하기
 
-* Github Actions에서 프로젝트 소스 코드를 빌드하고 생성된 산출물인 jar 파일을 S3 버킷에서 관리해야 한다.
+* 액세스 키 : AKIAQE43JXPDJBORVMV5
+* 비밀 액세스 키 : dLoYLGrpCMlvxIUyLNW6u8Bax33opBU8ovKDwXed
+* 이 때, 해당 화면을 벗어나게 되면 다시는 액세스 키와 비밀 액세스 키를 조회할 수 없다. 따라서 분실하지않도록 잘 보관해야 한다.
 
-```yaml
-name: Deploy To EC2
+#### Code Deploy가 실행될 때 필요한 appspec.yml 파일 작성하기
 
-on:
-  push:
-    branches:
-      - master
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Github Repository 파일 불러오기
-        uses: actions/checkout@v4
-
-      - name: JDK 17 version 설치
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
-
-      - name: application.yml 파일 작성
-        run: echo "$APPLICATION_PROPERTIES" > src/main/resources/application.yml
-
-      - name: 실행 권한 부여
-        run: chmod +x ./gradlew
-
-      - name: 테스트 및 빌드하기
-        run: ./gradlew clean build
-
-      - name: 빌드된 파일 이름 변경하기
-        run: mv ./build/libs/*SNAPSHOT.jar ./project.jar
-
-      - name: 압축하기
-        run: tar -czvf $GITHUB_SHA.tar.gz project.jar appspec.yml scripts
-
-      - name: AWS Resource에 접근할 수 있게 AWS credentials 설정
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: ap-northeast-2
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: S3에 프로젝트 폴더 업로드하기
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.tar.gz s3://actionss3/$GITHUB_SHA.tar.gz
-
-      - name: Code Deploy를 활용해 EC2에 프로젝트 코드 배포
-        run: aws deploy create-deployment
-          --application-name actions-server                                             # Code Deploy 애플리케이션 이름 
-          --deployment-config-name CodeDeployDefault.AllAtOnce            
-          --deployment-group-name production                                            # Code Deploy 배포 그룹 이름
-          --s3-location bucket=actionss3,bundleType=tgz,key=$GITHUB_SHA.tar.gz
-```
-
-#### appspec.yaml 
+* appspec.yml 파일은 Code Deploy가 해당 파일을 기반으로 실행되기 때문에 작성을 해줘야 한다.
 
 ```yaml
 version: 0.0
@@ -347,7 +269,7 @@ files:
   # / 이라고 지정하면 S3에 저장한 전체 파일을 뜻한다.
   - source: /
     # EC2의 어떤 경로에 저장할 지 지정한다.
-    destination: /home/ubuntu/actions
+    destination: /home/ubuntu/Instagram-Server
 
 permissions:
   - object: /
@@ -361,14 +283,259 @@ hooks:
       runas: ubuntu
 ```
 
-#### scripts/start-server.sh
+#### 쉘 스크립트 작성하기
 
 ```shell
+#!/bin/bash
+
 echo "--------------- 서버 배포 시작 -----------------"
-cd /home/ubuntu/actions
+cd /home/ubuntu/Instagram-Server
 sudo fuser -k -n tcp 8080 || true
 nohup java -jar project.jar > ./output.log 2>&1 &
 echo "--------------- 서버 배포 끝 -----------------"
+```
+
+#### Code Deploy 로그 확인하기
+
+* 겉으로 보았을 때 성공했더라도 Code Deploy의 로그를 확실하게 확인하는 것이 좋다.
+
+```shell
+$ /opt/codedeploy-agent/deployment-root/{deployment-group-ID}/{deployment-ID}/logs/scripts.log
+
+$ /opt/codedeploy-agent/deployment-root/{배포 그룹 ID}/{배포 ID}/logs/scripts.log
+```
+
+-----------------------
+</details>
+
+### ✅Docker 컨테이너 기반의 스프링 백엔드 CI/CD 구축하기
+
+<details>
+   <summary> 정리한 내용 보기 (👈 Click)</summary>
+<br />
+
+* 앞서 정리했던 **[✅확장성을 요구하는 프로젝트에서 CI/CD 구축하기(feat. S3 & CodeDeploy)]** 에서 더 나아가 Docker 컨테이너 기반의 인프라 구조로 확장해보려고 한다.
+
+#### Ubuntu에서 JDK 설치하기
+
+```shell
+$ sudo apt update && /
+sudo apt install openjdk-17-jdk -y
+```
+
+#### Ubuntu에서 Docker, Docker Compose 설치하기
+
+```shell
+$ sudo apt-get update && \
+	sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common && \
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+	sudo apt-key fingerprint 0EBFCD88 && \
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
+	sudo apt-get update && \
+	sudo apt-get install -y docker-ce && \
+	sudo usermod -aG docker ubuntu && \
+	sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+	sudo chmod +x /usr/local/bin/docker-compose && \
+	sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
+
+#### 위에서 CLI로 처리한 명령어들이 잘 처리됐는지 확인하기
+
+```shell
+$ java -version # Java 설치 확인
+
+$ docker -v # Docker 버전 확인
+$ docker compose version # Docker Compose 버전 확인
+```
+
+#### Github Actions의 IAM에 권한을 추가하기
+
+* 우리는 Amazon ECR을 사용할 예정이기 때문에 Amazon ECR에 대한 권한을 추가해준다.
+
+[img.png](image/img_13.png)
+
+#### Elastic Container Registry(ECR) 만들기
+
+* 아무나 접근할 수 없도록 프라이빗으로 설정하여 만든다.
+
+#### Dockerfile 기반으로 프로젝트를 만들기
+
+* Dockerfile을 작성하여 어떤 이미지를 기반으로 컨테이너를 만들 것인지를 알려줘야 한다.
+
+```dockerfile
+FROM openjdk:17-jdk
+
+COPY build/libs/*SNAPSHOT.jar project.jar
+
+ENTRYPOINT ["java", "-jar", "/project.jar"]
+```
+
+#### EC2가 private ECR에 접근할 수 있도록 세팅하기
+
+```shell
+$ sudo apt update
+$ sudo apt install amazon-ecr-credential-helper
+```
+
+레퍼런스 : [Amazon ECR 깃허브 리포지토리](https://github.com/awslabs/amazon-ecr-credential-helper?tab=readme-ov-file)
+
+#### Configuration 설정하기
+
+* Amazon ECR 레퍼런스를 보게 되면 Configuration 설정 파일을 만들라고 나온다.
+* `~` 경로에서 `.docker`라는 폴더를 만들고, 그 하위에 `config.json` 파일을 만들어서 아래와 같이 작성한다.
+
+```json
+{
+	"credsStore": "ecr-login"
+}
+```
+
+#### IAM Role을 활용해서 EC2가 ECR에 접근할 수 있도록 권한을 부여하기
+
+* 이전에 EC2에 연결된 IAM 역할을 수정한 적이 있다.
+* 그 역할에 ECR에 대해 접근할 수 있는 권한인 `AmazonEC2ContainerRegistryFullAccess` 정책을 추가한다.
+
+[img.png](image/img_14.png)
+
+#### Docker 기반 CI/CD 작성하기
+
+* Docker 컨테이너 기반의 Github Actions 파일을 작성해야 한다.
+
+```yaml
+name: Deploy To EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Github Repository 파일 불러오기
+        uses: actions/checkout@v4
+
+      - name: JDK 17버전 설치
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: resource 디렉터리 만들기
+        run: mkdir ./src/main/resources
+
+      - name: application.yml 파일 만들기
+        run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.yml
+
+      - name: 실행 권한 부여하기
+        run: chmod +x ./gradlew
+
+      - name: 테스트 및 빌드하기
+        run: ./gradlew clean build -x test
+
+      - name: AWS Resource에 접근할 수 있게 AWS credentials 설정
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ap-northeast-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: ECR에 로그인하기
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Docker 이미지 생성
+        run: docker build -t aniwhere .
+
+      - name: Docker 이미지에 Tag 붙이기
+        run: docker tag aniwhere ${{ steps.login-ecr.outputs.registry }}/instagram-server:latest
+
+      - name: ECR에 Docker 이미지 Push하기
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/instagram-server:latest
+
+      - name: docker-compose.yml 전송하기
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          source: "docker-compose.yml, Dockerfile, build/libs/*.jar"
+          target: "~/app"
+
+      - name: SSH로 EC2에 접속하기
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script_stop: true
+          script: |
+            cd ~/app
+            docker compose down || true
+            docker compose pull
+            docker compose up -d --build
+```
+
+#### docker-compos 활용하여 컨테이너에 Redis, MySQL도 추가하기
+
+```yaml
+services:
+  instagram-server:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: aniwhere
+      MYSQL_DATABASE: aniwhere
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping" ]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      retries: 10
+
+volumes:
+  mysql_data:
+```
+
+* 이 때, `application.yml`도 수정을 해야 한다.
+* Spring 애플리케이션과 소통을 위해 docker-compose에 설정된 서비스명을 기재해야 한다.
+* 위에서는 `mysql` 서비스명을 mysql, `redis` 서비스명을 redis로 설정했다.
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://mysql:3306/aniwhere
+    username: root
+    password: aniwhere
+  data:
+    redis:
+      host: redis
+      port: 6379
+  jpa:
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
 ```
 
 -----------------------
