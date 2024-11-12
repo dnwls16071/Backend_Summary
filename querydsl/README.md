@@ -253,5 +253,127 @@ void 회원과_팀을_조인하면서_팀_이름이_teamA인_팀만_조인하고
 }
 ```
 
+#### 페치 조인(fetch join)
+
+* 페치 조인은 SQL에서 제공하는 기능은 아니다. SQL 조인을 활용해서 연관된 엔티티를 SQL 한 번에 조회하는 기능이다.
+* 주로 성능 최적화에 사용되는 방법이다.
+
+```java
+@PersistenceUnit EntityManagerFactory emf;
+
+@Test
+@DisplayName("페치조인을 적용하지 않은 테스트 코드")
+void 페치조인을_적용하지_않은_테스트_코드() {
+    em.flush();			// 쓰기 지연 SQL문 저장소 반영
+    em.clear(); 		// 영속성 컨텍스트 비우기
+
+    Member findMember = queryFactory
+            .selectFrom(member)
+            .where(member.username.eq("member1"))
+            .fetchOne();
+
+    boolean isLoaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+    assertThat(isLoaded).isFalse();
+}
+```
+
+쿼리문 로그
+
+```sql
+Hibernate: 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        m1_0.team_id,
+        m1_0.username 
+    from
+        member m1_0 
+    where
+        m1_0.username=?
+```
+
+* 페치 조인을 사용하지 않고 QueryDSL문을 돌려 보면 현재 멤버와 연관 관계를 맺고 있는 팀 엔티티는 조회가 되지 않는 것을 볼 수 있다.
+* 만약 팀 엔티티와 관련된 데이터를 조회하려면 결국 쿼리를 2번 호출해야 한다.
+
+```java
+@Test
+@DisplayName("페치조인을 적용한 테스트 코드")
+void 페치조인을_적용한_테스트_코드() {
+    em.flush();        // 쓰기 지연 SQL문 저장소 반영
+    em.clear();        // 영속성 컨텍스트 비우기
+
+    Member findMember = queryFactory
+            .selectFrom(member)
+            .join(member.team, team).fetchJoin()
+            .where(member.username.eq("member1"))
+            .fetchOne();
+
+    boolean isLoaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+    assertThat(isLoaded).isTrue();
+}
+```
+
+쿼리문 로그
+
+```sql
+Hibernate: 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        t1_0.team_id,
+        t1_0.name,
+        m1_0.username 
+    from
+        member m1_0 
+    join
+        team t1_0 
+            on t1_0.team_id=m1_0.team_id 
+    where
+        m1_0.username=?
+```
+
+-----------------------
+</details>
+
+### ✅QueryDSL 서브 쿼리
+
+<details>
+   <summary> 정리 (👈 Click)</summary>
+<br />
+
+```java
+@Test
+@DisplayName("나이가 가장 많은 회원을 조회한다.")
+void 나이가_가장_많은_회원을_조회한다() {
+    // given
+    QMember memberSubquery = new QMember("memberSubquery");	// alias 별칭 중복 방지
+
+    // when
+    // eq(equal) : 일치
+    // goe(greater or equal) : 크거나 같음
+    // loe(less or equal) : 작거나 같음
+    // gt(greater than) : 크다
+    // lt(less than) : 작다
+    List<Member> fetch = queryFactory
+            .selectFrom(member)
+            .where(member.age.eq(
+                    JPAExpressions
+                            .select(memberSubquery.age.max())
+                            .from(memberSubquery)
+            ))
+            .fetch();
+
+    // then
+    assertThat(fetch).extracting("age")
+            .containsExactlyInAnyOrder(30, 40);
+}
+```
+
+* JPA JPQL 서브쿼리의 한계점으로 from 절의 서브쿼리는 지원되지 않는다. 이는 QueryDSL 역시 마찬가지다.
+* from 절의 서브쿼리 해결방안으로 다음과 같이 3가지가 있다.
+  * 서브쿼리는 join으로 변경한다.
+  * 애플리케이션에서 쿼리를 2번 분리해서 실행한다.
+  * nativeSQL을 사용한다.
+
 -----------------------
 </details>
