@@ -5,8 +5,11 @@ import com.jwj.querydsl.entity.QMember;
 import com.jwj.querydsl.entity.Team;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -282,5 +285,83 @@ public class QuerydslBasicTest {
 		for (Tuple tuple : fetch) {
 			System.out.println("tuple = " + tuple);
 		}
+	}
+
+	@Test
+	@DisplayName("회원의 이름과 팀 이름이 같은 대상에 대한 외부 조인을 할 수 있다.")
+	void 회원의_이름과_팀_이름이_같은_대상에_대한_외부_조인을_할_수_있다() {
+		em.persist(new Member("teamA"));
+		em.persist(new Member("teamB"));
+		em.persist(new Member("teamC"));
+
+		List<Tuple> fetch = queryFactory
+				.select(member, team)
+				.from(member)
+				.leftJoin(team).on(member.username.eq(team.name))
+				.fetch();
+
+		for (Tuple tuple : fetch) {
+			System.out.println("tuple = " + tuple);
+		}
+	}
+
+	@PersistenceUnit
+	EntityManagerFactory emf;
+
+	@Test
+	@DisplayName("페치조인을 적용하지 않은 테스트 코드")
+	void 페치조인을_적용하지_않은_테스트_코드() {
+		em.flush();			// 쓰기 지연 SQL문 저장소 반영
+		em.clear(); 		// 영속성 컨텍스트 비우기
+
+		Member findMember = queryFactory
+				.selectFrom(member)
+				.where(member.username.eq("member1"))
+				.fetchOne();
+
+		boolean isLoaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+		assertThat(isLoaded).isFalse();
+	}
+
+	@Test
+	@DisplayName("페치조인을 적용한 테스트 코드")
+	void 페치조인을_적용한_테스트_코드() {
+		em.flush();        // 쓰기 지연 SQL문 저장소 반영
+		em.clear();        // 영속성 컨텍스트 비우기
+
+		Member findMember = queryFactory
+				.selectFrom(member)
+				.join(member.team, team).fetchJoin()
+				.where(member.username.eq("member1"))
+				.fetchOne();
+
+		boolean isLoaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+		assertThat(isLoaded).isTrue();
+	}
+
+	@Test
+	@DisplayName("나이가 가장 많은 회원을 조회한다.")
+	void 나이가_가장_많은_회원을_조회한다() {
+		// given
+		QMember memberSubquery = new QMember("memberSubquery");	// alias 별칭 중복 방지
+
+		// when
+		// eq(equal) : 일치
+		// goe(greater or equal) : 크거나 같음
+		// loe(less or equal) : 작거나 같음
+		// gt(greater than) : 크다
+		// lt(less than) : 작다
+		List<Member> fetch = queryFactory
+				.selectFrom(member)
+				.where(member.age.eq(
+						JPAExpressions
+								.select(memberSubquery.age.max())
+								.from(memberSubquery)
+				))
+				.fetch();
+
+		// then
+		assertThat(fetch).extracting("age")
+				.containsExactlyInAnyOrder(30, 40);
 	}
 }
