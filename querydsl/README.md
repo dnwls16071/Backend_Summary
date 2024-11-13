@@ -13,57 +13,70 @@
 
 ```java
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.3.5'
-	id 'io.spring.dependency-management' version '1.1.6'
+  id 'java'
+  id 'org.springframework.boot' version '3.3.5'
+  id 'io.spring.dependency-management' version '1.1.6'
+
+  id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.jwj'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
 }
 
 repositories {
-	mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-            
-    // 테스트 Lombok
-	testCompileOnly 'org.projectlombok:lombok'
-	testAnnotationProcessor 'org.projectlombok:lombok'
+  runtimeOnly 'com.mysql:mysql-connector-j'
+  implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+  compileOnly 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    // QueryDSL
-	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+  testCompileOnly 'org.projectlombok:lombok'
+  testAnnotationProcessor 'org.projectlombok:lombok'
+
+  implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+  annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+  annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+  annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+  annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+  useJUnitPlatform()
 }
-
 clean {
-	delete file('src/main/generated')
+	delete file ('src/main/generated')
+
+	def querydslDir = "$buildDir/generated/querydsl"
+
+	sourceSets {
+		main.java.srcDir querydslDir
+	}
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+		querydsl.extendsFrom compileClasspath
+	}
 }
 ```
 
@@ -374,6 +387,205 @@ void 나이가_가장_많은_회원을_조회한다() {
   * 서브쿼리는 join으로 변경한다.
   * 애플리케이션에서 쿼리를 2번 분리해서 실행한다.
   * nativeSQL을 사용한다.
+
+-----------------------
+</details>
+
+### ✅QueryDSL 프로젝션
+
+<details>
+   <summary> 정리 (👈 Click)</summary>
+<br />
+
+#### 단일 프로젝션
+
+```java
+@Test
+@DisplayName("QueryDSL - 프로젝션 (1)")
+void QueryDSL_프로젝션1() {
+    // when
+    List<Member> fetch = queryFactory
+            .select(member)
+            .from(member)
+            .fetch();
+
+    for (Member m : fetch) {
+        System.out.println("m = " + m);
+    }
+}
+```
+
+#### 튜플 프로젝션
+
+```java
+@Test
+@DisplayName("QueryDSL - 프로젝션 (2)")
+void QueryDSL_프로젝션2() {
+    // when
+    List<Tuple> fetch = queryFactory
+            .select(member.username, member.age)
+            .from(member)
+            .fetch();
+
+    for (Tuple tuple : fetch) {
+        System.out.println("tuple = " + tuple);
+    }
+}
+```
+
+#### DTO 프로젝션
+
+* `setter`를 사용하는 방법
+
+```java
+@Test
+@DisplayName("QueryDSL - DTO 프로젝션 (1)")
+void QueryDSL_DTO_프로젝션1() {
+    // when
+    List<MemberDTO> fetch = queryFactory
+            .select(Projections.bean(MemberDTO.class, member.username, member.age))
+            .from(member)
+            .fetch();
+
+    for (MemberDTO memberDTO : fetch) {
+        System.out.println("memberDTO = " + memberDTO);
+    }
+}
+```
+
+* `fields`를 사용하는 방법
+
+```java
+@Test
+@DisplayName("QueryDSL - DTO 프로젝션 (2)")
+void QueryDSL_DTO_프로젝션2() {
+    // when
+    List<MemberDTO> fetch = queryFactory
+          .select(Projections.fields(MemberDTO.class, member.username, member.age))
+          .from(member)
+          .fetch();
+
+    for (MemberDTO memberDTO : fetch) {
+        System.out.println("memberDTO = " + memberDTO);
+    }
+}
+```
+
+* `constructor`를 사용하는 방법
+
+```java
+@Test
+@DisplayName("QueryDSL - DTO 프로젝션 (3)")
+void QueryDSL_DTO_프로젝션3() {
+    // when
+    List<MemberDTO> fetch = queryFactory
+            .select(Projections.constructor(MemberDTO.class, member.username, member.age))
+            .from(member)
+            .fetch();
+
+    for (MemberDTO memberDTO : fetch) {
+        System.out.println("memberDTO = " + memberDTO);
+    }
+}
+```
+
+* `@QueryProjection`을 사용하는 방법
+  * DTO에 QueryDSL 어노테이션을 유지해야 한다는 점과 DTO까지 Q 파일을 생성해야 한다는 단점이 있다.
+
+```java
+@Test
+@DisplayName("QueryDSL - @QueryProjection 사용")
+void QueryDSL_QueryProjection_사용() {
+    // when
+    List<MemberDTO> fetch = queryFactory
+            .select(new QMemberDTO(member.username, member.age))
+            .from(member)
+            .fetch();
+
+    for (MemberDTO memberDTO : fetch) {
+        System.out.println("memberDTO = " + memberDTO);
+    }
+}
+```
+
+-----------------------
+</details>
+
+### ✅ 벌크 연산(Bulk)
+
+<details>
+   <summary> 정리 (👈 Click)</summary>
+<br />
+
+```java
+@Test
+@Commit
+@DisplayName("QueryDSL - 수정 쿼리 작성")
+void QueryDSL_수정_쿼리_작성() {
+    // when
+    // update() : bulk operation
+    long count = queryFactory
+            .update(member)
+            .set(member.username, "비회원")
+            .where(member.age.lt(30))
+            .execute();
+
+    // then
+    List<Member> fetch = queryFactory
+            .selectFrom(member)
+            .fetch();
+
+    for (Member m : fetch) {
+        System.out.println("m = " + m);
+    }
+}
+```
+
+* 먼저 벌크 연산을 수행하게 된다. → 30살보다 적은 멤버에 대해서 이름을 비회원으로 바꾸는 연산을 수행
+* 벌크 연산은 JPA의 영속성 컨텍스트를 무시하고 바로 데이터베이스에 반영된다.
+* `then` 부분에서 JpaQueryFactory로 조회를 수행할 경우 JPA의 영속성 컨텍스트가 비워진 상태가 아니기 때문에 DB로부터 조회하지 않고 영속성 컨텍스트에 있는 값을 조회하게 된다.
+* 결과를 출력하면 DB에 반영된 결과와 일치하지 않는다는 것을 볼 수 있다.
+* 이와 같이 벌크 연산의 경우 JPA 영속성 컨텍스트와 DB간 데이터 불일치 문제가 발생할 가능성이 높다.
+* 따라서 이런 문제를 해결하기 위해 벌크 연산을 수행한 후 영속성 컨텍스트를 초기화해주는 작업을 해주는 것이 좋다.
+* 코드를 개선하면 아래와 같이 개선할 수 있다.
+
+```java
+@Test
+@Commit
+@DisplayName("QueryDSL - 수정 쿼리 작성")
+void QueryDSL_수정_쿼리_작성() {
+    // when
+    // update() : bulk operation
+    long count = queryFactory
+            .update(member)
+            .set(member.username, "비회원")
+            .where(member.age.lt(30))
+            .execute();
+
+	em.flush();     
+	em.clear();
+	
+    // then
+    List<Member> fetch = queryFactory
+            .selectFrom(member)
+            .fetch();
+
+    for (Member m : fetch) {
+        System.out.println("m = " + m);
+    }
+}
+```
+
+-----------------------
+</details>
+
+### ✅ 순수 JPA 리포지토리와 QueryDSL 비교
+
+<details>
+   <summary> 정리 (👈 Click)</summary>
+<br />
+
+
 
 -----------------------
 </details>
