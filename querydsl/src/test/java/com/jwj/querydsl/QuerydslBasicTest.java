@@ -1,10 +1,17 @@
 package com.jwj.querydsl;
 
+import com.jwj.querydsl.entity.dto.MemberDTO;
 import com.jwj.querydsl.entity.Member;
 import com.jwj.querydsl.entity.QMember;
 import com.jwj.querydsl.entity.Team;
+import com.jwj.querydsl.entity.dto.QMemberDTO;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -16,14 +23,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Commit;
 
 import java.util.List;
 
 import static com.jwj.querydsl.entity.QMember.member;
 import static com.jwj.querydsl.entity.QTeam.team;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.InstanceOfAssertFactories.type;
 import static org.assertj.core.groups.Tuple.tuple;
 
 @DataJpaTest
@@ -362,6 +368,237 @@ public class QuerydslBasicTest {
 
 		// then
 		assertThat(fetch).extracting("age")
-				.containsExactlyInAnyOrder(30, 40);
+				.containsExactlyInAnyOrder(40);
+	}
+
+	@Test
+	@DisplayName("QueryDSL에서 Case문을 사용할 수 있다.")
+	void QueryDSL에서_Case문을_사용할_수_있다() {
+		// when
+		List<String> fetch = queryFactory
+				.select(member.age
+						.when(10).then("열 살")
+						.when(20).then("스무 살")
+						.otherwise("기타")
+				).from(member)
+				.fetch();
+
+		for (String s : fetch) {
+			System.out.println("s = " + s);
+		}
+	}
+
+	@Test
+	@DisplayName("복잡한 케이스의 경우에도 QueryDSL의 Case문을 적용할 수 있다.")
+	void 복잡한_케이스의_경우에도_QueryDSL의_Case문을_적용할_수_있다() {
+		// when
+		List<String> fetch = queryFactory
+				.select(new CaseBuilder()
+						.when(member.age.between(0, 20)).then("0~20살")
+						.when(member.age.between(21, 30)).then("21~30살")
+						.otherwise("기타"))
+				.from(member)
+				.fetch();
+
+		for (String s : fetch) {
+			System.out.println("s = " + s);
+		}
+	}
+
+	@Test
+	@DisplayName("QueryDSL에서 상수를 더할 수 있다.")
+	void QueryDSL에서_상수를_더할_수_있다() {
+		// when
+		List<Tuple> fetch = queryFactory
+				.select(member.username, Expressions.constant("A"))
+				.from(member)
+				.fetch();
+
+		for (Tuple tuple : fetch) {
+			System.out.println("tuple = " + tuple);
+		}
+	}
+
+	@Test
+	@DisplayName("QueryDSL에서 문자를 더할 수 있다.")
+	void QueryDSL에서_문자를_더할_수_있다() {
+		// when
+		List<String> fetch = queryFactory
+				.select(member.username.concat("_").concat(member.age.stringValue()))
+				.from(member)
+				.fetch();
+
+		for (String s : fetch) {
+			System.out.println("s = " + s);
+		}
+	}
+
+	@Test
+	@DisplayName("QueryDSL - 프로젝션 (1)")
+	void QueryDSL_프로젝션1() {
+		// when
+		List<Member> fetch = queryFactory
+				.select(member)
+				.from(member)
+				.fetch();
+
+		for (Member m : fetch) {
+			System.out.println("m = " + m);
+		}
+	}
+
+	@Test
+	@DisplayName("QueryDSL - 프로젝션 (2)")
+	void QueryDSL_프로젝션2() {
+		// when
+		List<Tuple> fetch = queryFactory
+				.select(member.username, member.age)
+				.from(member)
+				.fetch();
+
+		for (Tuple tuple : fetch) {
+			System.out.println("tuple = " + tuple);
+		}
+	}
+
+	@Test
+	@DisplayName("QueryDSL - DTO 프로젝션 (1)")
+	void QueryDSL_DTO_프로젝션1() {
+		// when
+		List<MemberDTO> fetch = queryFactory
+				.select(Projections.bean(MemberDTO.class, member.username, member.age))
+				.from(member)
+				.fetch();
+
+		for (MemberDTO memberDTO : fetch) {
+			System.out.println("memberDTO = " + memberDTO);
+		}
+	}
+
+	@Test
+	@DisplayName("QueryDSL - DTO 프로젝션 (2)")
+	void QueryDSL_DTO_프로젝션2() {
+		// when
+		List<MemberDTO> fetch = queryFactory
+				.select(Projections.fields(MemberDTO.class, member.username, member.age))
+				.from(member)
+				.fetch();
+
+		for (MemberDTO memberDTO : fetch) {
+			System.out.println("memberDTO = " + memberDTO);
+		}
+	}
+
+	@Test
+	@DisplayName("QueryDSL - DTO 프로젝션 (3)")
+	void QueryDSL_DTO_프로젝션3() {
+		// when
+		List<MemberDTO> fetch = queryFactory
+				.select(Projections.constructor(MemberDTO.class, member.username, member.age))
+				.from(member)
+				.fetch();
+
+		for (MemberDTO memberDTO : fetch) {
+			System.out.println("memberDTO = " + memberDTO);
+		}
+	}
+
+	@Test
+	@DisplayName("QueryDSL - @QueryProjection 사용")
+	void QueryDSL_QueryProjection_사용() {
+		// when
+		List<MemberDTO> fetch = queryFactory
+				.select(new QMemberDTO(member.username, member.age))
+				.from(member)
+				.fetch();
+
+		for (MemberDTO memberDTO : fetch) {
+			System.out.println("memberDTO = " + memberDTO);
+		}
+	}
+
+	private List<Member> searchMemberByBooleanBuilder(String username, Integer age) {
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+		if (username != null) {
+			booleanBuilder.and(member.username.eq(username));
+		}
+
+		if (age != null) {
+			booleanBuilder.and(member.age.eq(age));
+		}
+
+		return queryFactory
+				.selectFrom(member)
+				.where(booleanBuilder)
+				.fetch();
+	}
+
+	@Test
+	@DisplayName("QueryDSL - 동적 쿼리 생성하는 방법으로 BooleanBuilder가 있다.")
+	void QueryDSL_동적_쿼리_생성하는_방법으로_BooleanBuilder가_있다() {
+		// given
+		String username = "member1";
+		Integer age = 10;
+
+		// when
+		List<Member> members = searchMemberByBooleanBuilder(username, age);
+
+		// then
+		assertThat(members).hasSize(1);
+	}
+
+	private List<Member> searchMemberByWhere(String username, Integer age) {
+		return queryFactory
+				.selectFrom(member)
+				.where(usernameEq(username), ageEq(age))
+				.fetch();
+	}
+
+	private Predicate usernameEq(String username) {
+		return username != null ? member.username.eq(username) : null;
+	}
+
+	private Predicate ageEq(Integer age) {
+		return age != null ? member.age.eq(age) : null;
+	}
+
+	@Test
+	@DisplayName("QueryDSL - 동적 쿼리 생성하는 방법으로 Where 다중 파라미터가 있다.")
+	void QueryDSL_동적_쿼리_생성하는_방법으로_Where_다중_파라미터가_있다() {
+		// given
+		String username = "member1";
+		Integer age = 10;
+
+		// when
+		List<Member> members = searchMemberByWhere(username, age);
+
+		// then
+		assertThat(members).hasSize(1);
+	}
+
+	@Test
+	@Commit
+	@DisplayName("QueryDSL - 수정 쿼리 작성")
+	void QueryDSL_수정_쿼리_작성() {
+		// when
+		// update() : bulk operation
+		long count = queryFactory
+				.update(member)
+				.set(member.username, "비회원")
+				.where(member.age.lt(30))
+				.execute();
+
+		em.flush();
+		em.clear();
+
+		// then
+		List<Member> fetch = queryFactory
+				.selectFrom(member)
+				.fetch();
+
+		for (Member m : fetch) {
+			System.out.println("m = " + m);
+		}
 	}
 }
