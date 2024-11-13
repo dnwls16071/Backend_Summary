@@ -252,8 +252,8 @@ $ systemctl status codedeploy-agent
 
 #### 생성된 사용자의 보안 자격 증명에서 AWS Access Key, AWS Secret Key를 발급받아 Github Repository Secret 변수에 저장하기
 
-* 액세스 키 : AKIAQE43JXPDJBORVMV5
-* 비밀 액세스 키 : dLoYLGrpCMlvxIUyLNW6u8Bax33opBU8ovKDwXed
+* 액세스 키 : ...
+* 비밀 액세스 키 : ...
 * 이 때, 해당 화면을 벗어나게 되면 다시는 액세스 키와 비밀 액세스 키를 조회할 수 없다. 따라서 분실하지않도록 잘 보관해야 한다.
 
 #### Code Deploy가 실행될 때 필요한 appspec.yml 파일 작성하기
