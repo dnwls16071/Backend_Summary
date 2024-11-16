@@ -3,6 +3,7 @@ package com.jwj.springTestCode.spring.service;
 import com.jwj.springTestCode.spring.ProductType;
 import com.jwj.springTestCode.spring.dto.OrderRequest;
 import com.jwj.springTestCode.spring.dto.OrderResponse;
+import com.jwj.springTestCode.spring.dto.OrderServiceRequest;
 import com.jwj.springTestCode.spring.entity.Order;
 import com.jwj.springTestCode.spring.entity.Product;
 import com.jwj.springTestCode.spring.entity.Stock;
@@ -25,7 +26,7 @@ public class OrderService {
 	private final OrderRepository orderRepository;
 	private final StockRepository stockRepository;
 
-	public OrderResponse createOrder(OrderRequest request, LocalDateTime registeredDateTime) {
+	public OrderResponse createOrder(OrderServiceRequest request, LocalDateTime registeredDateTime) {
 		List<String> productNumbers = request.getProductNumbers();
 		List<Product> products = findProductsBy(productNumbers);
 
