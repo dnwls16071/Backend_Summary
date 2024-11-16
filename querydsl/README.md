@@ -12,15 +12,19 @@
 > * SpringBoot 3.3.5
 
 ```java
+buildscript {
+  ext {
+    queryDslVersion = "5.0.0"
+  }
+}
+
 plugins {
   id 'java'
   id 'org.springframework.boot' version '3.3.5'
   id 'io.spring.dependency-management' version '1.1.6'
-
   id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
-group = 'com.jwj'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -40,43 +44,46 @@ repositories {
 }
 
 dependencies {
-  runtimeOnly 'com.mysql:mysql-connector-j'
   implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+  implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
   implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+  annotationProcessor(
+          "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta",
+          "jakarta.annotation:jakarta.annotation-api",
+          "jakarta.persistence:jakarta.persistence-api"
+  )
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+
   compileOnly 'org.projectlombok:lombok'
   annotationProcessor 'org.projectlombok:lombok'
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+  runtimeOnly 'com.mysql:mysql-connector-j'
 
   testCompileOnly 'org.projectlombok:lombok'
   testAnnotationProcessor 'org.projectlombok:lombok'
-
-  implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-  annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-  annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-  annotationProcessor "jakarta.persistence:jakarta.persistence-api"
-  annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 }
 
 tasks.named('test') {
   useJUnitPlatform()
 }
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+  main.java.srcDir querydslDir
+}
+
+tasks.withType(JavaCompile) {
+  options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+}
+
 clean {
-	delete file ('src/main/generated')
-
-	def querydslDir = "$buildDir/generated/querydsl"
-
-	sourceSets {
-		main.java.srcDir querydslDir
-	}
-
-	configurations {
-		compileOnly {
-			extendsFrom annotationProcessor
-		}
-		querydsl.extendsFrom compileClasspath
-	}
+  delete file(querydslDir)
 }
 ```
 
@@ -579,13 +586,120 @@ void QueryDSL_수정_쿼리_작성() {
 -----------------------
 </details>
 
-### ✅ 순수 JPA 리포지토리와 QueryDSL 비교
+### ✅ 실무 활용 방법 - 스프링 데이터 JPA와 QueryDSL 조합하기
 
 <details>
    <summary> 정리 (👈 Click)</summary>
 <br />
 
+* 스프링 데이터 JPA만으로는 동적 쿼리를 작성하기 어렵다. 
+* 따라서 문제를 해결하기 위해 사용자 정의 리포지토리라는 것을 도입할 수 있다.
+  * 사용자 정의 인터페이스 작성
+  * 사용자 정의 인터페이스 구현 : 스프링 데이터 JPA에서 지원되지 않는 동적 쿼리 등등..
+  * 스프링 데이터 리포지토리에 사용자 정의 인터페이스를 상속해 같이 사용하는 방법
 
+[img1](img/img_1.png)
+
+#### 사용자 정의 인터페이스를 작성한다.
+
+```java
+@Repository
+public interface MemberRepositoryCustom {
+
+	List<MemberTeamDTO> search(MemberSearchCondition condition);
+}
+```
+
+#### 사용자 정의 인터페이스를 구현하는 구현체 클래스를 작성한다.
+
+* 이 때, 주의할 점은 `~Impl` 형식을 준수해야만 한다.(규칙이다)
+
+```java
+@Repository
+@RequiredArgsConstructor
+public class MemberRepositoryImpl implements MemberRepositoryCustom {
+
+	private final JPAQueryFactory queryFactory;
+
+	@Override
+	public List<MemberTeamDTO> search(MemberSearchCondition condition) {
+		return queryFactory
+				.select(new QMemberTeamDTO(
+						member.id.as("memberId"),
+						member.username,
+						member.age,
+						team.id.as("teamId"),
+						team.name.as("teamName")))
+				.from(member)
+				.leftJoin(member.team, team)
+				.where(usernameEq(condition.getUsername()),
+						teamNameEq(condition.getTeamName()),
+						ageGoe(condition.getAgeGoe()),
+						ageLoe(condition.getAgeLoe()))
+				.fetch();
+	}
+
+	private BooleanExpression usernameEq(String username) {
+		return StringUtils.hasText(username) ? member.username.eq(username) : null;
+	}
+
+	private BooleanExpression teamNameEq(String teamName) {
+		return StringUtils.hasText(teamName) ? team.name.eq(teamName) : null;
+	}
+
+	private BooleanExpression ageGoe(Integer ageGoe) {
+		return ageGoe != null ? member.age.goe(ageGoe) : null;
+	}
+
+	private BooleanExpression ageLoe(Integer ageLoe) {
+		return ageLoe != null ? member.age.loe(ageLoe) : null;
+	}
+}
+```
+
+#### 스프링 데이터 JPA 리포지토리에서 사용자 정의 인터페이스를 상속받아 사용한다.
+
+```java
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
+
+	List<Member> findByUsername(String username);
+}
+```
 
 -----------------------
 </details>
+
+### ✅스프링 데이터 페이징
+
+<details>
+   <summary> 정리 (👈 Click)</summary>
+<br />
+
+* 스프링 데이터 라이브러리가 제공
+* count 쿼리가 생략 가능한 경우 생략해서 처리
+  * 페이지 시작이면서 컨텐츠 사이즈가 페이지 사이즈보다 작을 때 Ex. 한 페이지당 노출되는 데이터 수는 100개인데 컨텐츠가 100개 미만인 경우
+  * 마지막 페이지일 때(offset + 컨텐츠 사이즈를 더해서 전체 사이즈를 구함, 마지막 페이지이면서 컨텐츠 사이즈가 페이지 사이즈보다 작을 때)
+
+```java
+public abstract class PageableExecutionUtils {
+  private PageableExecutionUtils() {
+  }
+
+  public static <T> Page<T> getPage(List<T> content, Pageable pageable, LongSupplier totalSupplier) {
+    Assert.notNull(content, "Content must not be null");
+    Assert.notNull(pageable, "Pageable must not be null");
+    Assert.notNull(totalSupplier, "TotalSupplier must not be null");
+    if (!pageable.isUnpaged() && pageable.getOffset() != 0L) {
+      return content.size() != 0 && pageable.getPageSize() > content.size() ? new PageImpl(content, pageable, pageable.getOffset() + (long)content.size()) : new PageImpl(content, pageable, totalSupplier.getAsLong());
+    } else {
+      return !pageable.isUnpaged() && pageable.getPageSize() <= content.size() ? new PageImpl(content, pageable, totalSupplier.getAsLong()) : new PageImpl(content, pageable, (long)content.size());
+    }
+  }
+}
+```
+
+-----------------------
+</details>
+
+### ✅QueryDslRepositorySupport
+
