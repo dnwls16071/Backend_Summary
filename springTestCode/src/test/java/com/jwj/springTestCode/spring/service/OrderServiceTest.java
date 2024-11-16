@@ -4,6 +4,7 @@ import com.jwj.springTestCode.spring.ProductSellingStatus;
 import com.jwj.springTestCode.spring.ProductType;
 import com.jwj.springTestCode.spring.dto.OrderRequest;
 import com.jwj.springTestCode.spring.dto.OrderResponse;
+import com.jwj.springTestCode.spring.dto.OrderServiceRequest;
 import com.jwj.springTestCode.spring.entity.Product;
 import com.jwj.springTestCode.spring.entity.Stock;
 import com.jwj.springTestCode.spring.repository.OrderProductRepository;
@@ -59,9 +60,10 @@ class OrderServiceTest {
 		OrderRequest request = OrderRequest.builder()
 				.productNumbers(List.of("001", "002"))
 				.build();
+		OrderServiceRequest serviceRequest = request.toServiceRequest();
 
 		// when
-		OrderResponse response = orderService.createOrder(request, registeredDateTime);
+		OrderResponse response = orderService.createOrder(serviceRequest, registeredDateTime);
 
 		// then
 		assertThat(response.getId()).isNotNull();
@@ -89,9 +91,10 @@ class OrderServiceTest {
 		OrderRequest request = OrderRequest.builder()
 				.productNumbers(List.of("001", "001"))
 				.build();
+		OrderServiceRequest serviceRequest = request.toServiceRequest();
 
 		// when
-		OrderResponse response = orderService.createOrder(request, registeredDateTime);
+		OrderResponse response = orderService.createOrder(serviceRequest, registeredDateTime);
 
 		// then
 		assertThat(response.getProducts()).hasSize(2);
@@ -115,9 +118,10 @@ class OrderServiceTest {
 		OrderRequest request = OrderRequest.builder()
 				.productNumbers(List.of("001", "001", "002", "003"))
 				.build();
+		OrderServiceRequest serviceRequest = request.toServiceRequest();
 
 		// when
-		OrderResponse response = orderService.createOrder(request, now);
+		OrderResponse response = orderService.createOrder(serviceRequest, now);
 
 		// then
 		assertThat(response.getId()).isNotNull();
@@ -159,9 +163,10 @@ class OrderServiceTest {
 		OrderRequest request = OrderRequest.builder()
 				.productNumbers(List.of("001", "001", "002", "003"))
 				.build();
+		OrderServiceRequest serviceRequest = request.toServiceRequest();
 
 		// when & then
-		assertThatThrownBy(() -> orderService.createOrder(request, now))
+		assertThatThrownBy(() -> orderService.createOrder(serviceRequest, now))
 				.isInstanceOf(IllegalArgumentException.class)
 				.hasMessage("재고가 부족한 상품이 있습니다.");
 	}

@@ -2,6 +2,7 @@ package com.jwj.springTestCode.spring.service;
 
 import com.jwj.springTestCode.spring.dto.ProductRequest;
 import com.jwj.springTestCode.spring.dto.ProductResponse;
+import com.jwj.springTestCode.spring.dto.ProductServiceRequest;
 import com.jwj.springTestCode.spring.entity.Product;
 import com.jwj.springTestCode.spring.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,9 +46,10 @@ class ProductServiceTest {
 				.name("아메리카노")
 				.price(4000)
 				.build();
+		ProductServiceRequest serviceRequest = request.toServiceRequest();
 
 		// when
-		ProductResponse productResponse = productService.createProduct(request);
+		ProductResponse productResponse = productService.createProduct(serviceRequest);
 
 		// then
 		assertThat(productResponse)
@@ -68,9 +70,10 @@ class ProductServiceTest {
 				.name("아메리카노")
 				.price(4000)
 				.build();
+		ProductServiceRequest serviceRequest = request.toServiceRequest();
 
 		// when
-		ProductResponse productResponse = productService.createProduct(request);
+		ProductResponse productResponse = productService.createProduct(serviceRequest);
 
 		// then
 		assertThat(productResponse)
