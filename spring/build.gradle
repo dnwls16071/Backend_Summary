@@ -32,6 +32,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+	// 커스텀 라이브러리 추가
+	implementation files('libs/customLibrary-0.0.1-SNAPSHOT.jar')
 }
 
 tasks.named('test') {
