@@ -1,0 +1,16 @@
+services:
+  actuator:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=actuator
+      - MYSQL_DATABASE=actuator
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping" ]
+      interval: 5s
+      retries: 10
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
