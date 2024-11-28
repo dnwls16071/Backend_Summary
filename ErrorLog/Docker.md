@@ -65,7 +65,7 @@ docker exec -it [컨테이너 ID] sh
    <summary> 에러 내용 해결 방법 (👈 Click)</summary>
 <br />
 
-[img.png](docker_img/img.png)
+[img.png](docker/img.png)
 
 * 각각의 컨테이너는 자신만의 네트워크망과 IP 주소를 가진다.
 * 호스트 컴퓨터의 입장에서 localhost는 호스트 컴퓨터 자체를 가리키고 Spring 컨테이너의 입장에서 localhost는 Spring 자체를 가리킨다.
