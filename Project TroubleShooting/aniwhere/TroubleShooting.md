@@ -8,6 +8,124 @@
 
 ### ✅ (DevOps)SpringBoot(Backend) & Next.js(Frontend) Nginx Reverse Proxy 트러블 슈팅
 
+* 리버스 프록시(Reverse Proxy) : 리버스 프록시란, 클라이언트 요청을 대신 받아 내부 서버로 전달해주는 것을 말한다.
+* 프록시(Proxy)란, 대리라는 의미로 서버 요청에 대한 대리자 역할을 수행하는 것을 프록시 서버라고 한다.
+* 프록시 서버는 클라이언트와 서버 사이에서 동작하는 중간 서버를 말한다.
+* 클라이언트가 서버에 직접 요청을 보내는 대신 프록시 서버는 클라이언트 요청을 받아 서버로 전달하고, 서버에서 받은 응답을 클라이언트에게 다시 전달하는 중계자 역할을 한다.
+
+##### 포워드 프록시(Forward Proxy)
+
+<img src="https://velog.velcdn.com/images/pgmjun/post/c82e44a6-da24-49f3-955d-f17315b1a046/image.png">
+
+* 클라이언트와 인터넷 사이에 있는 프록시 서버를 뜻한다.
+* 포워드 프록시는 클라이언트의 익명성을 보장해준다.
+  * 클라이언트의 요청을 가로채 통신을 대리 수행한다.
+  * 때문에 WAS는 클라이언트에 대해 알 수 없다. IP 역추적을 한다고 하더라도 프록시 서버의 IP만 보인다.
+* 클라이언트가 요청한 내용을 캐싱한다.
+  * 연결된 클라이언트가 요청한 데이터를 반환할 때 저장했다가 다른 클라이언트가 동일한 데이터를 요청하면 인터넷을 거치지 않고 바로 반환해준다.
+  * 전송 시간이 절약되고 외부 요청이 감소되어 네트워크 병목 현상을 방지한다.
+
+##### 리버스 프록시(Reverse Proxy)
+
+<img src="https://velog.velcdn.com/images/pgmjun/post/d339dea9-f57e-4525-8ee0-6f14b7fc01bc/image.png">
+
+* 리버스 프록시를 적용하면 로드 밸런싱이 가능하며 서버의 정보를 숨겨 보안성을 얻을 수 있다.
+* 클라이언트는 리버스 프록시 서버가 진짜 서버인 것처럼 요청을 보내기 때문에 클라이언트 측에서 서버의 정체를 알 수 없어 보안이 좋다.
+
+##### Nginx Reverse Proxy 설정 방법
+
+* AWS EC2에 접속한 후 Nginx를 설치한다.
+
+```shell
+# apt-get 업데이트
+sudo apt-get update
+
+# Nginx 설치
+sudo apt-get install nginx
+sudo service start nginx
+
+# nginx Config 파일 열기
+sudo vi /etc/nginx/nginx.conf
+```
+
+* /etc/nginx/nginx.conf 내용 수정
+
+```shell
+http {
+
+        server {
+                listen 80;
+                
+                # 프론트엔드 측 리버스 프록시 설정
+                location / {
+                        proxy_pass http://localhost:3000;
+                        proxy_set_header Host $host;
+                        proxy_set_header X-Real-IP $remote_addr;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto $scheme;
+                }
+                
+                # 백엔드 측 리버스 프록시 설정
+                location /api {
+                        rewrite ^/api(.*)$ $1 break;
+                        proxy_pass http://localhost:8080;
+                        proxy_set_header Host $host;
+                        proxy_set_header X-Real-IP $remote_addr;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto $scheme;
+                }
+        }
+
+        ##
+        # Basic Settings
+        ##
+
+        sendfile on;
+        tcp_nopush on;
+        types_hash_max_size 2048;
+        # server_tokens off;
+
+        # server_names_hash_bucket_size 64;
+        # server_name_in_redirect off;
+
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+        ##
+        # SSL Settings
+        ##
+
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+        ssl_prefer_server_ciphers on;
+
+        ##
+        # Logging Settings
+        ##
+
+        access_log /var/log/nginx/access.log;
+
+        ##
+        # Gzip Settings
+        ##
+
+        gzip on;
+
+        # gzip_vary on;
+        # gzip_proxied any;
+        # gzip_comp_level 6;
+        # gzip_buffers 16 8k;
+        # gzip_http_version 1.1;
+        # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+        ##
+        # Virtual Host Configs
+        ##
+
+        ##include /etc/nginx/conf.d/*.conf;
+        ##include /etc/nginx/sites-enabled/*;
+}
+```
+
 ### ✅ (DevOps)error: tar: build/libs/aniwhere-0.0.1-SNAPSHOT.jar: Wrote only 5120 of 10240 bytes, tar: Exiting with failure status due to previous errors, drone-scp error: Process exited with status 2
 
 * 해당 오류는 파일을 서버로 전송하고 압축 해제하는 과정에서 발생한 문제이다. 
@@ -54,3 +172,15 @@
 > docker system prune -af
 
 * 여유 공간을 확보한 후 다시 CI/CD를 가동하니 정상적으로 작동되는 것을 확인할 수 있었다.
+
+### ✅(Back - Front) 프론트엔드-백엔드 Response 스펙 설계 경험기
+
+* 최근 Aniwhere 프로젝트에서 API Response 스펙을 정의하는 과정에서 마주한 기술적 챌린지와 학습 포인트를 공유하고자 한다.
+* FE/BE 개발자 간 Response 상세도에 대한 관점 차이가 발생했다.
+* BE 관점에서는 HTTP Status Code, Field Validation 결과, 상세 메타데이터 등 최대한 상세한 정보 제공 선호하였다.
+* 반면 FE 관점에서 실제 사용하는 핵심 데이터 위주의 최소한의 정보만을 선호하는 것으로 나타났다.
+* 이로 인해 이미 개발된 API들의 리팩토링이 불가피했다.
+* 일관되지 않은 Response 구조로 인한 개발 생산성이 저하됐고 API 스펙 변경으로 인한 추가 개발 비용이 발생했다.
+* 이런 경험을 통해서 기술적 완성도와 더불어 팀 간 커뮤니케이션의 중요성이 정말 중요하다는 것을 깨달았고 초기 설계 단계에서의 충분한 논의의 필요성을 느꼈다.
+* 또한 프로젝트 기술 스펙은 단순 기술적 관점이 아닌 실제 사용자(프론트엔드 개발자)의 니즈에 맞춰 설계되어야 한다는 것을 잘 알게 되었다.
+* 이번 프로젝트를 통해 명확한 Response 스펙 기준을 수립했으며, 이를 기반으로 일관성 있는 API 개발을 진행하고 있다.
