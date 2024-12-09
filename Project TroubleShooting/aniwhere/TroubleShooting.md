@@ -184,3 +184,20 @@ http {
 * 이런 경험을 통해서 기술적 완성도와 더불어 팀 간 커뮤니케이션의 중요성이 정말 중요하다는 것을 깨달았고 초기 설계 단계에서의 충분한 논의의 필요성을 느꼈다.
 * 또한 프로젝트 기술 스펙은 단순 기술적 관점이 아닌 실제 사용자(프론트엔드 개발자)의 니즈에 맞춰 설계되어야 한다는 것을 잘 알게 되었다.
 * 이번 프로젝트를 통해 명확한 Response 스펙 기준을 수립했으며, 이를 기반으로 일관성 있는 API 개발을 진행하고 있다.
+
+### ✅ (Back) 인증없이 Swagger API URL을 Spring Security에서 허용하는 방법(Swagger v3 버전)
+
+* Nginx Reverse Proxy 처리에 따라 Swagger API 문서의 경로를 변경해야되는 요구사항이 접수됐다.
+* 관련 레퍼런스 1 : [오픈 API 공식문서](https://springdoc.org/#Introduction)
+* 관련 레퍼런스 2 : [How to configure Spring Security to allow Swagger URL to be accessed without authentication](https://stackoverflow.com/questions/37671125/how-to-configure-spring-security-to-allow-swagger-url-to-be-accessed-without-aut)
+* `application.yml` 설정 파일에서 Swagger API URL 경로를 다음과 같이 변경하고 이를 JWT Filter, Spring Security Config에 등록해주었다.
+
+```yaml
+springdoc:
+  swagger-ui:
+    path: /api/swagger-ui.html
+    config-url: /api/v3/api-docs/swagger-config
+    url: /api/v3/api-docs
+  api-docs:
+    path: /api/v3/api-docs
+```
