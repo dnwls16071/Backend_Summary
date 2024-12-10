@@ -65,3 +65,33 @@
 
 * 클라이언트가 S3에 미디어 파일을 업로드할 때, 파트 넘버를 나누어 지정해야 된다.
 * 위의 에러는 REST API 테스트 툴인 포스트맨으로 테스트할 때, 한 번에 `PUT` 메서드로 요청을 보냈기 때문에 발생하는 오류라고 한다.
+
+### ✅ java.sql.SQLException: Connection is read-only. Queries leading to data modification are not allow
+
+* 리뷰 서비스 코드를 테스트하는 과정에서 위와 같은 오류가 발생했다.
+* 전체 클래스 코드를 보면 아래와 같다.
+
+```java
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class ReviewService {
+
+	private final ReviewRepository reviewRepository;
+	private final UserRepository userRepository;
+
+	public ReviewResponse createReview(ReviewServiceDto request) {
+
+		User user = userRepository.findById(request.getUserId())
+				.orElseThrow(() -> new UserException(NOT_FOUND_USER));
+
+		Review entity = request.toEntity(user);
+		Review savedReview = reviewRepository.save(entity);
+		return ReviewResponse.from(savedReview);
+	}
+}
+```
+
+* 클래스 레벨에서의 기본 설정이 `readOnly = true` 옵션으로 지정되어 있다.
+* 리뷰를 작성하는 작업은 데이터를 쓰는 작업이기 때문에 이 메서드에 대해서는 읽기 전용을 해제해야 한다.
+* 따라서 전체 클래스 레벨에서는 `readOnly = true`를 사용하되 메서드 레벨에서 데이터 변화가 필요한 경우 `@Transactional` 어노테이션을 추가하도록 하자.
