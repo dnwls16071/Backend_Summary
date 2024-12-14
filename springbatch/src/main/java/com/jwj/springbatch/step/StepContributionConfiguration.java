@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@Configuration
+//@Configuration
 public class StepContributionConfiguration {
 
 	private JobRepository jobRepository;
@@ -24,7 +24,7 @@ public class StepContributionConfiguration {
 		this.transactionManager = transactionManager;
 	}
 
-	@Bean
+	///@Bean
 	public Job job() {
 		return new JobBuilder("job", jobRepository)
 				.start(step1())
@@ -32,7 +32,7 @@ public class StepContributionConfiguration {
 				.build();
 	}
 
-	@Bean
+	//@Bean
 	public Step step1() {
 		return new StepBuilder("step1", jobRepository)
 				.tasklet(new Tasklet() {
@@ -46,7 +46,7 @@ public class StepContributionConfiguration {
 				.build();
 	}
 
-	@Bean
+	//@Bean
 	public Step step2() {
 		return new StepBuilder("step2", jobRepository)
 				.tasklet(new CustomTasklet(), transactionManager)
