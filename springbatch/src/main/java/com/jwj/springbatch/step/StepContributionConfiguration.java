@@ -1,4 +1,4 @@
-package com.jwj.springbatch.job;
+package com.jwj.springbatch.step;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -13,19 +13,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-//@Configuration
-public class JobExecutionConfiguration {
+@Configuration
+public class StepContributionConfiguration {
 
 	private JobRepository jobRepository;
 	private PlatformTransactionManager transactionManager;
 
-	public JobExecutionConfiguration(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+	public StepContributionConfiguration(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
 		this.jobRepository = jobRepository;
 		this.transactionManager = transactionManager;
 	}
 
 	@Bean
-	public Job batchJob() {
+	public Job job() {
 		return new JobBuilder("job", jobRepository)
 				.start(step1())
 				.next(step2())
@@ -38,7 +38,9 @@ public class JobExecutionConfiguration {
 				.tasklet(new Tasklet() {
 					@Override
 					public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-						return RepeatStatus.FINISHED;
+						System.out.println(" >> step1 was executed!");
+						throw new RuntimeException("step1 was failed!");
+						//return RepeatStatus.FINISHED;
 					}
 				}, transactionManager)
 				.build();
@@ -47,13 +49,7 @@ public class JobExecutionConfiguration {
 	@Bean
 	public Step step2() {
 		return new StepBuilder("step2", jobRepository)
-				.tasklet(new Tasklet() {
-					@Override
-					public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-						throw new RuntimeException("step2 has failed!");
-						//return RepeatStatus.FINISHED;
-					}
-				}, transactionManager)
+				.tasklet(new CustomTasklet(), transactionManager)
 				.build();
 	}
 }
