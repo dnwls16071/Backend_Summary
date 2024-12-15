@@ -212,3 +212,18 @@ For a stable JSON structure, please use Spring Data's PagedModel (globally via @
 * 해당 경고 메시지는 PageImpl 인스턴스를 직렬화할 때 JSON 구조의 안정성을 보장하지 못한다는 내용으로 Spring Data의 PageModel을 사용하는 것을 권장하고 있다.
 * 페이지네이션을 적용할 때 자주 발생했던 문제였다.
 * [스프링 관련 코드](https://github.com/spring-projects/spring-data-commons/blob/main/src/main/java/org/springframework/data/web/config/SpringDataJacksonConfiguration.java)
+
+### ✅ (Back) Redis Transaction
+
+
+
+### ✅ (Code Review) 팀원으로부터 받았던 코드 리뷰 피드백 취합(추후 계속 여기에 정리)
+
+* 같은 프로젝트의 백엔드 파트로 같이 일을 하시는 우현님, 운채님으로부터 코드 리뷰를 통한 피드백을 많이 받았다.
+* 어떤 부분에서의 문제인지 짚어주셨고 앞으로의 API 개발에 있어서 어떤 방향성으로 코드를 작성해야될지를 알려주셨다.
+
+* 운채님 피드백
+  * 컨트롤러와 서비스의 책임을 명확히 분리하자.
+    * Service Layer : 비즈니스 로직에 집중, HTTP나 웹과 관련된 사항에 대해 일절 모름
+    * Controller Layer : HTTP 응답에 집중, HTTP 상태 코드와 헤더 등을 관리
+    * Repository Layer : DB 관련 작업
