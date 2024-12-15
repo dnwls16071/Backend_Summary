@@ -201,3 +201,14 @@ springdoc:
   api-docs:
     path: /api/v3/api-docs
 ```
+
+### ✅ (Back) ration PageModule WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+
+```text
+For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO)) or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+```
+
+* 애니메이션에 포함된 에피소드 조회 및 에피소드별 리뷰 조회를 할 때 QueryDsl을 사용하여 Fetch Join을 사용하여 N+1 문제를 해결하려고 시도하였는데 직렬화 관련 문제가 발생했다.
+* 해당 경고 메시지는 PageImpl 인스턴스를 직렬화할 때 JSON 구조의 안정성을 보장하지 못한다는 내용으로 Spring Data의 PageModel을 사용하는 것을 권장하고 있다.
+* 페이지네이션을 적용할 때 자주 발생했던 문제였다.
+* [스프링 관련 코드](https://github.com/spring-projects/spring-data-commons/blob/main/src/main/java/org/springframework/data/web/config/SpringDataJacksonConfiguration.java)
