@@ -15,38 +15,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
-@RestController
-public class JobLauncherController {
-
-	private final Job job;
-	private final JobLauncher jobLauncher;
-	private final JobLauncher asyncJobLauncher;
-
-	public JobLauncherController(Job job,
-								 JobLauncher jobLauncher,
-								 @Qualifier("asyncJobLauncher") JobLauncher asyncJobLauncher) {
-		this.job = job;
-		this.jobLauncher = jobLauncher;
-		this.asyncJobLauncher = asyncJobLauncher;
-	}
-
-	@PostMapping("/batchSync")
-	public String launch(@RequestBody Member member) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-		JobParameters jobParameters = new JobParametersBuilder()
-				.addString("id", member.getId())
-				.addDate("date", new Date())
-				.toJobParameters();
-		jobLauncher.run(job, jobParameters);
-		return "batch completed!";
-	}
-
-	@PostMapping("/batchAsync")
-	public String launchAsync(@RequestBody Member member) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-		JobParameters jobParameters = new JobParametersBuilder()
-				.addString("id", member.getId())
-				.addDate("date", new Date())
-				.toJobParameters();
-		asyncJobLauncher.run(job, jobParameters);
-		return "batch launched asynchronously!";
-	}
-}
+//@RestController
+//public class JobLauncherController {
+//
+//	private final Job job;
+//	private final JobLauncher jobLauncher;
+//	private final JobLauncher asyncJobLauncher;
+//
+//	public JobLauncherController(Job job,
+//								 JobLauncher jobLauncher,
+//								 @Qualifier("asyncJobLauncher") JobLauncher asyncJobLauncher) {
+//		this.job = job;
+//		this.jobLauncher = jobLauncher;
+//		this.asyncJobLauncher = asyncJobLauncher;
+//	}
+//
+//	@PostMapping("/batchSync")
+//	public String launch(@RequestBody Member member) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+//		JobParameters jobParameters = new JobParametersBuilder()
+//				.addString("id", member.getId())
+//				.addDate("date", new Date())
+//				.toJobParameters();
+//		jobLauncher.run(job, jobParameters);
+//		return "batch completed!";
+//	}
+//
+//	@PostMapping("/batchAsync")
+//	public String launchAsync(@RequestBody Member member) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+//		JobParameters jobParameters = new JobParametersBuilder()
+//				.addString("id", member.getId())
+//				.addDate("date", new Date())
+//				.toJobParameters();
+//		asyncJobLauncher.run(job, jobParameters);
+//		return "batch launched asynchronously!";
+//	}
+//}
