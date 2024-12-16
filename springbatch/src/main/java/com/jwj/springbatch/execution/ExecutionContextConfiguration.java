@@ -9,8 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@Configuration
-
+//@Configuration
 public class ExecutionContextConfiguration {
 
 	private JobRepository jobRepository;
@@ -29,7 +28,7 @@ public class ExecutionContextConfiguration {
 		this.tasklet4 = tasklet4;
 	}
 
-	@Bean
+	//@Bean
 	public Job job() {
 		return new JobBuilder("job", jobRepository)
 				.start(step1())
@@ -39,28 +38,28 @@ public class ExecutionContextConfiguration {
 				.build();
 	}
 
-	@Bean
+	//@Bean
 	public Step step1() {
 		return new StepBuilder("step1", jobRepository)
 				.tasklet(tasklet1, transactionManager)
 				.build();
 	}
 
-	@Bean
+	//@Bean
 	public Step step2() {
 		return new StepBuilder("step2", jobRepository)
 				.tasklet(tasklet2, transactionManager)
 				.build();
 	}
 
-	@Bean
+	//@Bean
 	public Step step3() {
 		return new StepBuilder("step3", jobRepository)
 				.tasklet(tasklet3, transactionManager)
 				.build();
 	}
 
-	@Bean
+	//@Bean
 	public Step step4() {
 		return new StepBuilder("step4", jobRepository)
 				.tasklet(tasklet4, transactionManager)
