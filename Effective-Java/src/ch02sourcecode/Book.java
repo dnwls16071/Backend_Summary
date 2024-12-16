@@ -1,4 +1,4 @@
-package ch01sourcecode;
+package ch02sourcecode;
 
 public class Book {
 	private String name;

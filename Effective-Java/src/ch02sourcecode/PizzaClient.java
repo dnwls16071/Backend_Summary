@@ -1,8 +1,8 @@
-package ch01sourcecode;
+package ch02sourcecode;
 
-import static ch01sourcecode.NyPizza.Size.MEDIUM;
-import static ch01sourcecode.Pizza.Topping.ONION;
-import static ch01sourcecode.Pizza.Topping.PEPPER;
+import static ch02sourcecode.NyPizza.Size.MEDIUM;
+import static ch02sourcecode.Pizza.Topping.ONION;
+import static ch02sourcecode.Pizza.Topping.PEPPER;
 
 public class PizzaClient {
 

@@ -1,4 +1,4 @@
-package ch01sourcecode;
+package ch02sourcecode;
 
 public class NutritionFacts3 {
 	private final int servingSize;	// 1회 제공량(필수)
