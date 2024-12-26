@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @Transactional
 class ParentTest {
@@ -15,7 +17,6 @@ class ParentTest {
 	EntityManager em;
 
 	@Test
-	@Commit
 	void test() {
 		Parent parent = new Parent();
 
@@ -28,5 +29,23 @@ class ParentTest {
 		em.persist(parent);
 		em.flush();
 		em.clear();
+	}
+
+	@Test
+	void cascadeTest() {
+		Parent parent = new Parent();
+
+		Child child1 = new Child();
+		Child child2 = new Child();
+
+		parent.addChild(child1);
+		parent.addChild(child2);
+
+		em.persist(parent);
+
+		Parent findParent = em.find(Parent.class, parent.getId());
+
+		findParent.getChildren().remove(0);
+		assertThat(findParent.getChildren().size()).isEqualTo(1);
 	}
 }
