@@ -3,6 +3,7 @@ package com.example.younghanapi1.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Or;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -50,5 +51,37 @@ public class Order {
 	public void setDelivery(Delivery delivery) {
 		this.delivery = delivery;
 		delivery.setOrder(this);
+	}
+
+	// 생성자 대신 네이밍을 유효하게 지어 알아볼 수 있게
+	public static Order createOrder(Member member, Delivery delivery, OrderItem ... orderItem) {
+		Order order = new Order();
+		order.setMember(member);
+		order.setDelivery(delivery);
+		for (OrderItem item : orderItem) {
+			order.addOrderItem(item);
+		}
+		order.setStatus(OrderStatus.ORDER);
+		order.setOrderDate(LocalDateTime.now());
+		return order;
+	}
+
+	public void cancel() {
+		if (delivery.getStatus() == DeliveryStatus.COMP) {
+			throw new IllegalStateException("환불 불가");
+		}
+
+		this.setStatus(OrderStatus.CANCEL);
+		for (OrderItem orderItem : orderItems) {
+			orderItem.cancel();
+		}
+	}
+
+	public int getTotalPrice() {
+		int totalPrice = 0;
+		for (OrderItem orderItem : orderItems) {
+			totalPrice += orderItem.getOrderPrice() * orderItem.getCount();
+		}
+		return totalPrice;
 	}
 }
