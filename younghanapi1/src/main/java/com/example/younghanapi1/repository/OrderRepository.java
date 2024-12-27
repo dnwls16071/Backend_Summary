@@ -21,7 +21,14 @@ public class OrderRepository {
 		return entityManager.find(Order.class, id);
 	}
 
-//	public List<Order> findAll() {
-//
-//	}
+	// JPQL 스타일
+	public List<Order> findAll(OrderSearch orderSearch) {
+		return entityManager.createQuery("select o from Order o join o.member m " +
+						" where o.member.name like :name" +
+						" and o.status = :status", Order.class)
+						.setParameter("name", orderSearch.getMemberName())
+						.setParameter("status", orderSearch.getOrderStatus())
+						.setMaxResults(1000)
+						.getResultList();
+	}
 }
