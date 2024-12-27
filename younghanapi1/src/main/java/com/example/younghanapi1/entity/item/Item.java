@@ -1,5 +1,6 @@
 package com.example.younghanapi1.entity.item;
 
+import com.example.younghanapi1.exception.NotEnoughStockException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +19,17 @@ public abstract class Item {
 	private String name;
 	private int price;
 	private int stockQuantity;
+
+	public void addStock(int quantity) {
+		this.stockQuantity += quantity;
+	}
+
+	public void removeStock(int quantity) {
+		int restStock = this.stockQuantity - quantity;
+		if (restStock < 0) {
+			throw new NotEnoughStockException("재고 수량 부족");
+		}
+
+		this.stockQuantity -= restStock;
+	}
 }
