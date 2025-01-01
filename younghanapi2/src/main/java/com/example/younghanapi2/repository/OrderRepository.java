@@ -1,5 +1,7 @@
 package com.example.younghanapi2.repository;
 
+import com.example.younghanapi2.api.OrderSimpleApiController;
+import com.example.younghanapi2.api.dto.SimpleQueryOrderDto;
 import com.example.younghanapi2.domain.Order;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -125,6 +127,14 @@ public class OrderRepository {
                         " join fetch o.delivery d", Order.class)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public List<SimpleQueryOrderDto> findOrderDtos() {
+        return em.createQuery(
+            "select new com.example.younghanapi2.api.dto.SimpleQueryOrderDto(o.id, o.member.name, o.orderDate, o.status, o.delivery.address) from Order o" +
+                    " join o.member m" +
+                    " join o.delivery d", SimpleQueryOrderDto.class)
                 .getResultList();
     }
 }
