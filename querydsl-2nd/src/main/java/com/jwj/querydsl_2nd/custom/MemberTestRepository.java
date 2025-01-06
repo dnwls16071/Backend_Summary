@@ -6,7 +6,7 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import java.util.List;
 import static com.jwj.querydsl_2nd.entity.QMember.member;
 import static com.jwj.querydsl_2nd.entity.QTeam.team;
 import static org.springframework.util.StringUtils.hasText;
-QuerydslRepositorySupport
+
 @Repository
 public class MemberTestRepository extends Querydsl4RepositorySupport {
 
