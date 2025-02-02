@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import javax.sql.DataSource;
@@ -29,12 +28,12 @@ public class Db2StartApplication {
 
 		private final DataSource dataSource;
 
-		@Bean
+		//@Bean
 		public ItemService itemService() {
 			return new ItemServiceV1(itemRepository());
 		}
 
-		@Bean
+		//@Bean
 		public ItemRepository itemRepository() {
 			return new JdbcTemplateItemRepositoryV1(dataSource);
 		}
@@ -46,18 +45,18 @@ public class Db2StartApplication {
 
 		private final DataSource dataSource;
 
-		@Bean
+		//@Bean
 		public ItemService itemService() {
 			return new ItemServiceV1(itemRepository());
 		}
 
-		@Bean
+		//@Bean
 		public ItemRepository itemRepository() {
 			return new JdbcTemplateItemRepositoryV2(dataSource);
 		}
 	}
 
-	@Configuration
+	//@Configuration
 	@RequiredArgsConstructor
 	static class JdbcTemplateV3Config {
 
