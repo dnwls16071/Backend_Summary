@@ -1,0 +1,73 @@
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.5'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	annotationProcessor(
+			"com.querydsl:querydsl-apt:${queryDslVersion}:jakarta",
+			"jakarta.annotation:jakarta.annotation-api",
+			"jakarta.persistence:jakarta.persistence-api"
+	)
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+tasks.withType(JavaCompile) {
+	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+}
+
+clean {
+	delete file(querydslDir)
+}
