@@ -1,6 +1,0 @@
-POST http://localhost:8080/batchSync
-Content-Type: application/json
-
-{
-  "id" : "leaven"
-}

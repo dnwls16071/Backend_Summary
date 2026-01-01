@@ -1,9 +1,0 @@
-services:
-  batch:
-    image: mysql:8.0
-    container_name: mysql
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_DATABASE=springbatch
-      - MYSQL_ROOT_PASSWORD=pass
