@@ -290,6 +290,7 @@
 * [Kotlin - 상속](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%83%81%EC%86%8D%5BEffective-Kotlin-Item-10%5D)
 * [Kotlin - 데이터 클래스](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%81%B4%EB%9E%98%EC%8A%A4%5BEffective-Kotlin-Item-11%5D)
 * [Kotlin - 객체](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EA%B0%9D%EC%B2%B4%5BEffective-Kotlin-Item-12%5D)
+* [Kotlin - 예외](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%98%88%EC%99%B8%5BEffective-Kotlin-Item-13%5D)
 
 ## 📖 Kotlin
 
