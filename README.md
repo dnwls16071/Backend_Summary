@@ -435,6 +435,7 @@
 * [Database - 트랜잭션](https://github.com/dnwls16071/Backend_Summary/wiki/Database-%E2%80%90-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98)
 * [Database - 설계의 중요성](https://github.com/dnwls16071/Backend_Summary/wiki/Database-%E2%80%90-%EC%84%A4%EA%B3%84%EC%9D%98-%EC%A4%91%EC%9A%94%EC%84%B1)
 * [Database - 개념적 모델링](https://github.com/dnwls16071/Backend_Summary/wiki/Database-%E2%80%90-%EA%B0%9C%EB%85%90%EC%A0%81-%EB%AA%A8%EB%8D%B8%EB%A7%81)
+* [Database - 논리적 모델링](https://github.com/dnwls16071/Backend_Summary/wiki/Database-%E2%80%90-%EB%85%BC%EB%A6%AC%EC%A0%81-%EB%AA%A8%EB%8D%B8%EB%A7%81)
 * [Database - Count Query Performance](https://github.com/dnwls16071/Backend_Summary/wiki/Database-%E2%80%90-Count-Query-Performance)
 
 ## 📖 Nginx
