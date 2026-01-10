@@ -292,6 +292,8 @@
 * [Kotlin - 객체](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EA%B0%9D%EC%B2%B4%5BEffective-Kotlin-Item-12%5D)
 * [Kotlin - 예외](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%98%88%EC%99%B8%5BEffective-Kotlin-Item-13%5D)
 * [Kotlin - 열거형 클래스](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%97%B4%EA%B1%B0%ED%98%95-%ED%81%B4%EB%9E%98%EC%8A%A4%5BEffective-Kotlin-Item-14%5D)
+* [Kotlin - 봉인된 클래스와 인터페이스](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EB%B4%89%EC%9D%B8%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4%EC%99%80-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%5BEffective-Kotlin-Item-15%5D)
+* [Kotlin - 애너테이션 클래스](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%81%B4%EB%9E%98%EC%8A%A4%5BEffective-Kotlin-Item-16%5D)
 
 ## 📖 Kotlin
 
