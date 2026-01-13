@@ -295,6 +295,7 @@
 * [Kotlin - 봉인된 클래스와 인터페이스](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EB%B4%89%EC%9D%B8%EB%90%9C-%ED%81%B4%EB%9E%98%EC%8A%A4%EC%99%80-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%5BEffective-Kotlin-Item-15%5D)
 * [Kotlin - 애너테이션 클래스](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%81%B4%EB%9E%98%EC%8A%A4%5BEffective-Kotlin-Item-16%5D)
 * [Kotlin - 컬렉션](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%BB%AC%EB%A0%89%EC%85%98%5BEffective-Kotlin-Item-18%5D)
+* [Kotlin - 연산자 오버로딩](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9%5BEffective-Kotlin-Item-19%5D)
 
 ## 📖 Kotlin
 
