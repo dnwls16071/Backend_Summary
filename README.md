@@ -296,6 +296,8 @@
 * [Kotlin - 애너테이션 클래스](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98-%ED%81%B4%EB%9E%98%EC%8A%A4%5BEffective-Kotlin-Item-16%5D)
 * [Kotlin - 컬렉션](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%BB%AC%EB%A0%89%EC%85%98%5BEffective-Kotlin-Item-18%5D)
 * [Kotlin - 연산자 오버로딩](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9%5BEffective-Kotlin-Item-19%5D)
+* [Kotlin - 타입 시스템의 묘미](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%9D%98-%EB%AC%98%EB%AF%B8%5BEffective-Kotlin-Item-20%5D)
+* [Kotlin - 제네릭](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%A0%9C%EB%84%A4%EB%A6%AD%5BEffective-Kotlin-Item-21%5D)
 
 ## 📖 Kotlin
 
