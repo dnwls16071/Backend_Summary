@@ -1,6 +1,6 @@
 # Backend_Summary
 
-### 📖 Spring Security
+## 📖 Spring Security
 
 * [Spring Security - 초기화 설정](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Security-%E2%80%90-%EC%B4%88%EA%B8%B0%ED%99%94-%EC%84%A4%EC%A0%95)
 * [Spring Security - 인증 프로세스 이해](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Security-%E2%80%90-%EC%9D%B8%EC%A6%9D-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EC%9D%B4%ED%95%B4)
@@ -34,7 +34,7 @@
 * [Spring Security - Authorization Server 주요 도메인 클래스](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Security-%E2%80%90-Authorization-Server-%EC%A3%BC%EC%9A%94-%EB%8F%84%EB%A9%94%EC%9D%B8-%ED%81%B4%EB%9E%98%EC%8A%A4)
 * [Spring Security - Authorization Server 엔드포인트 프로토콜](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Security-%E2%80%90-Authorization-Server-%EC%97%94%EB%93%9C%ED%8F%AC%EC%9D%B8%ED%8A%B8-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C)
 
-### 📖 AWS
+## 📖 AWS
 
 * [AWS - AWS CDK(Cloud Development Kit)](https://github.com/dnwls16071/Backend_Study_TIL/wiki/AWS-%E2%80%90-AWS-CDK(Cloud-Development-Kit))
 * [AWS - Signed URL](https://github.com/dnwls16071/Backend_Study_TIL/wiki/AWS-%E2%80%90-Signed-URL)
@@ -42,7 +42,7 @@
 * [AWS - Cognito](https://github.com/dnwls16071/Backend_Summary/wiki/AWS-%E2%80%90-Cognito)
 * [AWS - Signed URL 서명 로직](https://github.com/dnwls16071/Backend_Summary/wiki/AWS-%E2%80%90-Signed-URL-%EC%84%9C%EB%AA%85-%EB%A1%9C%EC%A7%81-%EC%A0%95%EB%A6%AC)
 
-### 📖 Kafka
+## 📖 Kafka
 
 * [Apache Kafka - A to Z](https://github.com/dnwls16071/Backend_Summary/wiki/Apache-Kafka-%E2%80%90-A-to-Z)
 * [Apache Kakfa - Trouble Shooting List](https://github.com/dnwls16071/Backend_Summary/wiki/Apache-Kafka-%E2%80%90-Trouble-Shooting-List)
@@ -64,7 +64,7 @@
 
 * [Confluent Cloud ‐ Manage Schema Registry and Govern Data Streams](https://github.com/dnwls16071/Backend_Summary/wiki/Confluent-Cloud-%E2%80%90-Manage-Schema-Registry-and-Govern-Data-Streams)
 
-### 📖 Spring Batch
+## 📖 Spring Batch
 
 * [Spring Batch - A to Z](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Batch-%E2%80%90-A-to-Z)
 * [Spring Batch - Tasklet vs Chunk](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Batch-%E2%80%90-Tasklet-vs-Chunk)
@@ -85,7 +85,7 @@
 * [Spring Batch - JSON 파일 읽고 쓰기](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Batch-%E2%80%90-JSON-%ED%8C%8C%EC%9D%BC-%EC%9D%BD%EA%B3%A0-%EC%93%B0%EA%B8%B0)
 * [Spring Batch ‐ DB 읽고 쓰기](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Batch-%E2%80%90-DB-%EC%9D%BD%EA%B3%A0-%EC%93%B0%EA%B8%B0)
 
-### 📖 Spring
+## 📖 Spring
 
 * [Spring - 객체 지향 설계와 스프링](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Spring-%E2%80%90-%EA%B0%9D%EC%B2%B4-%EC%A7%80%ED%96%A5-%EC%84%A4%EA%B3%84%EC%99%80-%EC%8A%A4%ED%94%84%EB%A7%81)
 * [Spring - 스프링 컨테이너와 스프링 빈](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Spring-%E2%80%90-%EC%8A%A4%ED%94%84%EB%A7%81-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88%EC%99%80-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%88)
@@ -128,7 +128,7 @@
 * [Spring ‐ URL 인코딩](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-%E2%80%90-URL-%EC%9D%B8%EC%BD%94%EB%94%A9)
 * [Spring - 캐시(Cache) 추상화](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-%E2%80%90-Cache-%EC%B6%94%EC%83%81%ED%99%94)
 
-### 📖 Spring Boot
+## 📖 Spring Boot
 
 * [Spring Boot - SSE로 알림 기능 구현하기](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Spring-%E2%80%90-SSE%EB%A1%9C-%EC%95%8C%EB%A6%BC-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
 * [Spring Boot ‐ 스프링 부트 개념](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Spring-Boot-%E2%80%90-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-%EA%B0%9C%EB%85%90)
@@ -137,7 +137,7 @@
 * [Spring Boot ‐ 마이크로미터, 프로메테우스, 그라파나](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Spring-Boot-%E2%80%90-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EB%AF%B8%ED%84%B0,-%ED%94%84%EB%A1%9C%EB%A9%94%ED%85%8C%EC%9A%B0%EC%8A%A4,-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98)
 * [Spring Boot - 모니터링 메트릭](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-Boot-%E2%80%90-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EB%A9%94%ED%8A%B8%EB%A6%AD-%ED%99%9C%EC%9A%A9)
 
-### 📖 Java
+## 📖 Java
 
 * [Java - Class](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Java-%E2%80%90-Class)
 * [Java - Java 메모리 구조](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Java-%E2%80%90-%EC%9E%90%EB%B0%94-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0)
@@ -468,3 +468,6 @@
 * [Design Pattern - Facade Pattern](https://github.com/dnwls16071/Backend_Summary/wiki/Design-Pattern-%E2%80%90-Facade-Pattern)
 * [Design Pattern - Strategy Pattern](https://github.com/dnwls16071/Backend_Summary/wiki/Design-Pattern-%E2%80%90-Strategy-Pattern)
 * [Design Pattern - Singleton Pattern](https://github.com/dnwls16071/Backend_Summary/wiki/Design-Pattern-%E2%80%90-Singleton-Pattern)
+
+## 📖 Real MySQL 8.0
+
