@@ -278,7 +278,7 @@
 * [IO 병목, 어떻게 해결하지](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-IO-%EB%B3%91%EB%AA%A9,-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%B4%EA%B2%B0%ED%95%98%EC%A7%80)
 * [실무에서 꼭 필요한 보안 지식](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EC%8B%A4%EB%AC%B4%EC%97%90%EC%84%9C-%EA%BC%AD-%ED%95%84%EC%9A%94%ED%95%9C-%EB%B3%B4%EC%95%88-%EC%A7%80%EC%8B%9D)
 
-## 📖 Effective Kotlin
+## 📖 Effective Kotlin[핵심편]
 
 * [Kotlin - 변수](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EB%B3%80%EC%88%98%5BEffective-Kotlin-Item-3%5D)
 * [Kotlin - 기본 타입, 기본 타입의 리터럴과 연산](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EA%B8%B0%EB%B3%B8-%ED%83%80%EC%9E%85,-%EA%B8%B0%EB%B3%B8-%ED%83%80%EC%9E%85%EC%9D%98-%EB%A6%AC%ED%84%B0%EB%9F%B4%EA%B3%BC-%EC%97%B0%EC%82%B0%5BEffective-Kotlin-Item-4%5D)
@@ -298,6 +298,10 @@
 * [Kotlin - 연산자 오버로딩](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9%5BEffective-Kotlin-Item-19%5D)
 * [Kotlin - 타입 시스템의 묘미](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%9D%98-%EB%AC%98%EB%AF%B8%5BEffective-Kotlin-Item-20%5D)
 * [Kotlin - 제네릭](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%A0%9C%EB%84%A4%EB%A6%AD%5BEffective-Kotlin-Item-21%5D)
+
+## 📖 Effective Kotlin
+
+* [Kotlin - 가변성을 제한하라](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%84-%EC%A0%9C%ED%95%9C%ED%95%98%EB%9D%BC%5BEffective-Kotlin-Item-1%5D)
 
 ## 📖 Kotlin
 
