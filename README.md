@@ -306,6 +306,7 @@
 * [Kotlin ‐ 가능한 한 빨리 플랫폼 타입을 제거하라](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EA%B0%80%EB%8A%A5%ED%95%9C-%ED%95%9C-%EB%B9%A8%EB%A6%AC-%ED%94%8C%EB%9E%AB%ED%8F%BC-%ED%83%80%EC%9E%85%EC%9D%84-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%9D%BC%5BEffective-Kotlin-Item-3%5D)
 * [Kotlin ‐ 변수의 스코프를 최소화하라](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EB%B3%80%EC%88%98%EC%9D%98-%EC%8A%A4%EC%BD%94%ED%94%84%EB%A5%BC-%EC%B5%9C%EC%86%8C%ED%99%94%ED%95%98%EB%9D%BC%5BEffective-Kotlin-Item-4%5D)
 * [Kotlin ‐ 인수와 상태에 대한 기대치를 명시하라](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%9D%B8%EC%88%98%EC%99%80-%EC%83%81%ED%83%9C%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B8%B0%EB%8C%80%EC%B9%98%EB%A5%BC-%EB%AA%85%EC%8B%9C%ED%95%98%EB%9D%BC%5BEffective-Kotlin-Item-5%5D)
+* [Kotlin ‐ 사용자 정의 오류보다 표준 오류를 선호하라](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%98%A4%EB%A5%98%EB%B3%B4%EB%8B%A4-%ED%91%9C%EC%A4%80-%EC%98%A4%EB%A5%98%EB%A5%BC-%EC%84%A0%ED%98%B8%ED%95%98%EB%9D%BC%5BEffective-Kotlin-Item-6%5D)
 
 ## 📖 Kotlin
 
