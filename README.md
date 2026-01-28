@@ -60,7 +60,7 @@
 * [Apache Kafka - Kafka로 동시성 이슈 해결하기](https://github.com/dnwls16071/Backend_Summary/wiki/Apache-Kafka-%E2%80%90-Kafka%EB%A1%9C-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0)
 * [Apache Kafka - Kafka Streams & 주요 API 및 연산자 정리 & Kafka Streams Topology & Apache Avro](https://github.com/dnwls16071/Backend_Summary/wiki/Apache-Kafka-%E2%80%90-Kafka-Streams-&-%EC%A3%BC%EC%9A%94-API-%EB%B0%8F-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%A0%95%EB%A6%AC-&-Kafka-Streams-Topology-&-Apache-Avro)
 
-### 📖 Confluent Cloud
+## 📖 Confluent Cloud
 
 * [Confluent Cloud ‐ Manage Schema Registry and Govern Data Streams](https://github.com/dnwls16071/Backend_Summary/wiki/Confluent-Cloud-%E2%80%90-Manage-Schema-Registry-and-Govern-Data-Streams)
 
