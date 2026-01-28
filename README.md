@@ -1,4 +1,4 @@
-ㅅ# Backend_Summary
+# Backend_Summary
 
 ## 📖 Spring Security
 
@@ -268,15 +268,22 @@
 * [Java ‐ 메서드가 던지는 모든 예외를 문서화하라](https://github.com/dnwls16071/Backend_Summary/wiki/Java-%E2%80%90-%EB%A9%94%EC%84%9C%EB%93%9C%EA%B0%80-%EB%8D%98%EC%A7%80%EB%8A%94-%EB%AA%A8%EB%93%A0-%EC%98%88%EC%99%B8%EB%A5%BC-%EB%AC%B8%EC%84%9C%ED%99%94%ED%95%98%EB%9D%BC%5BEffective-Java-Item-74%5D)
 * [Java ‐ 예외의 상세 메시지에 실패 관련 정보를 담으라](https://github.com/dnwls16071/Backend_Summary/wiki/Java-%E2%80%90-%EC%98%88%EC%99%B8%EC%9D%98-%EC%83%81%EC%84%B8-%EB%A9%94%EC%8B%9C%EC%A7%80%EC%97%90-%EC%8B%A4%ED%8C%A8-%EA%B4%80%EB%A0%A8-%EC%A0%95%EB%B3%B4%EB%A5%BC-%EB%8B%B4%EC%9C%BC%EB%9D%BC%5BEffective-Java-Item-75%5D)
 
-## 📖 주니어 백엔드 개발자가 반드시 알아야 할 실무 지식
+## 📖 Kotlin
 
-* [느려진 서비스, 어디부터 봐야 할까](https://github.com/dnwls16071/Backend_Summary/wiki/%EB%8A%90%EB%A0%A4%EC%A7%84-%EC%84%9C%EB%B9%84%EC%8A%A4,-%EC%96%B4%EB%94%94%EB%B6%80%ED%84%B0-%EB%B4%90%EC%95%BC-%ED%95%A0%EA%B9%8C)
-* [성능을 좌우하는 DB 설계와 쿼리](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%A2%8C%EC%9A%B0%ED%95%98%EB%8A%94-DB-%EC%84%A4%EA%B3%84%EC%99%80-%EC%BF%BC%EB%A6%AC)
-* [외부 연동이 문제일 때 살펴봐야 할 것들](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EC%99%B8%EB%B6%80-%EC%97%B0%EB%8F%99%EC%9D%B4-%EB%AC%B8%EC%A0%9C%EC%9D%BC-%EB%95%8C-%EC%82%B4%ED%8E%B4%EB%B4%90%EC%95%BC-%ED%95%A0-%EA%B2%83%EB%93%A4)
-* [비동기 연동, 언제 어떻게 써야 할까](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%97%B0%EB%8F%99,-%EC%96%B8%EC%A0%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%8D%A8%EC%95%BC-%ED%95%A0%EA%B9%8C)
-* [동시성, 데이터가 꼬이기 전에 잡아야 한다](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EB%8F%99%EC%8B%9C%EC%84%B1,-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EA%BC%AC%EC%9D%B4%EA%B8%B0-%EC%A0%84%EC%97%90-%EC%9E%A1%EC%95%84%EC%95%BC-%ED%95%9C%EB%8B%A4)
-* [IO 병목, 어떻게 해결하지](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-IO-%EB%B3%91%EB%AA%A9,-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%B4%EA%B2%B0%ED%95%98%EC%A7%80)
-* [실무에서 꼭 필요한 보안 지식](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EC%8B%A4%EB%AC%B4%EC%97%90%EC%84%9C-%EA%BC%AD-%ED%95%84%EC%9A%94%ED%95%9C-%EB%B3%B4%EC%95%88-%EC%A7%80%EC%8B%9D)
+* [Kotlin ‐ Kotlin에서 변수와 타입, 연산자를 다루는 방법](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin%EC%97%90%EC%84%9C-%EB%B3%80%EC%88%98%EC%99%80-%ED%83%80%EC%9E%85,-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EB%8B%A4%EB%A3%A8%EB%8A%94-%EB%B0%A9%EB%B2%95)
+* [Kotlin - Kotlin에서 코드를 제어하는 방법](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%A0%9C%EC%96%B4%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95)
+* [Kotlin - Kotlin에서의 OOP](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin%EC%97%90%EC%84%9C%EC%9D%98-OOP)
+* [Kotlin - Kotlin에서의 FP](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin%EC%97%90%EC%84%9C%EC%9D%98-FP)
+* [Kotlin - Kotlin 특징](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin-%ED%8A%B9%EC%A7%95)
+* [Kotlin - Generic](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Generic)
+* [Kotlin - 지연과 위임](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%A7%80%EC%97%B0%EA%B3%BC-%EC%9C%84%EC%9E%84)
+* [Kotlin - 복잡한 함수형 프로그래밍](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EB%B3%B5%EC%9E%A1%ED%95%9C-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
+* [Kotlin - 연산자 오버로딩과 Kotlin DSL](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9%EA%B3%BC-Kotlin-DSL)
+* [Kotlin - 어노테이션과 리플렉션](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EA%B3%BC-%EB%A6%AC%ED%94%8C%EB%A0%89%EC%85%98)
+* [Kotlin - 기타](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EA%B8%B0%ED%83%80)
+* [Kotlin - Coroutines 기초](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Coroutines-%EA%B8%B0%EC%B4%88)
+* [Kotlin - Coroutines 구성 요소와 동작 메커니즘](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Coroutines-%EA%B5%AC%EC%84%B1-%EC%9A%94%EC%86%8C%EC%99%80-%EB%8F%99%EC%9E%91-%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98)
+* [Kotlin ‐ Dispatchers](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Dispatchers)
 
 ## 📖 Effective Kotlin[핵심편]
 
@@ -308,23 +315,6 @@
 * [Kotlin ‐ 인수와 상태에 대한 기대치를 명시하라](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%9D%B8%EC%88%98%EC%99%80-%EC%83%81%ED%83%9C%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B8%B0%EB%8C%80%EC%B9%98%EB%A5%BC-%EB%AA%85%EC%8B%9C%ED%95%98%EB%9D%BC%5BEffective-Kotlin-Item-5%5D)
 * [Kotlin ‐ 사용자 정의 오류보다 표준 오류를 선호하라](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%98%A4%EB%A5%98%EB%B3%B4%EB%8B%A4-%ED%91%9C%EC%A4%80-%EC%98%A4%EB%A5%98%EB%A5%BC-%EC%84%A0%ED%98%B8%ED%95%98%EB%9D%BC%5BEffective-Kotlin-Item-6%5D)
 
-## 📖 Kotlin
-
-* [Kotlin ‐ Kotlin에서 변수와 타입, 연산자를 다루는 방법](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin%EC%97%90%EC%84%9C-%EB%B3%80%EC%88%98%EC%99%80-%ED%83%80%EC%9E%85,-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EB%8B%A4%EB%A3%A8%EB%8A%94-%EB%B0%A9%EB%B2%95)
-* [Kotlin - Kotlin에서 코드를 제어하는 방법](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin%EC%97%90%EC%84%9C-%EC%BD%94%EB%93%9C%EB%A5%BC-%EC%A0%9C%EC%96%B4%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95)
-* [Kotlin - Kotlin에서의 OOP](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin%EC%97%90%EC%84%9C%EC%9D%98-OOP)
-* [Kotlin - Kotlin에서의 FP](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin%EC%97%90%EC%84%9C%EC%9D%98-FP)
-* [Kotlin - Kotlin 특징](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Kotlin-%ED%8A%B9%EC%A7%95)
-* [Kotlin - Generic](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Generic)
-* [Kotlin - 지연과 위임](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%A7%80%EC%97%B0%EA%B3%BC-%EC%9C%84%EC%9E%84)
-* [Kotlin - 복잡한 함수형 프로그래밍](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EB%B3%B5%EC%9E%A1%ED%95%9C-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
-* [Kotlin - 연산자 오버로딩과 Kotlin DSL](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%97%B0%EC%82%B0%EC%9E%90-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9%EA%B3%BC-Kotlin-DSL)
-* [Kotlin - 어노테이션과 리플렉션](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EA%B3%BC-%EB%A6%AC%ED%94%8C%EB%A0%89%EC%85%98)
-* [Kotlin - 기타](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-%EA%B8%B0%ED%83%80)
-* [Kotlin - Coroutines 기초](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Coroutines-%EA%B8%B0%EC%B4%88)
-* [Kotlin - Coroutines 구성 요소와 동작 메커니즘](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Coroutines-%EA%B5%AC%EC%84%B1-%EC%9A%94%EC%86%8C%EC%99%80-%EB%8F%99%EC%9E%91-%EB%A9%94%EC%BB%A4%EB%8B%88%EC%A6%98)
-* [Kotlin ‐ Dispatchers](https://github.com/dnwls16071/Backend_Summary/wiki/Kotlin-%E2%80%90-Dispatchers)
-
 ## 📖 JPA
 
 * [JPA - JPA(Java Persistence API)](https://github.com/dnwls16071/Backend_Study_TIL/wiki/JPA-%E2%80%90-JPA(Java-Persistence-API))
@@ -342,6 +332,16 @@
 * [JPA를 활용한 API 개발 - 주문 조회 API 개발시 주의사항(다대일)](https://github.com/dnwls16071/Backend_Study_TIL/wiki/API-%EA%B0%9C%EB%B0%9C-%E2%80%90-%EC%A7%80%EC%97%B0%EB%A1%9C%EB%94%A9%EA%B3%BC-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94)
 * [JPA를 활용한 API 개발 - 주문 조회 API 개발시 주의사항(일대다)](https://github.com/dnwls16071/Backend_Study_TIL/wiki/API-%EA%B0%9C%EB%B0%9C-%E2%80%90-%EC%A3%BC%EB%AC%B8-%EC%A1%B0%ED%9A%8C-API-%EA%B0%9C%EB%B0%9C%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD(%EC%9D%BC%EB%8C%80%EB%8B%A4))
 * [JPA를 활용한 API 개발 - OSIV](https://github.com/dnwls16071/Backend_Study_TIL/wiki/API-%EA%B0%9C%EB%B0%9C-%E2%80%90-OSIV)
+
+## 📖 주니어 백엔드 개발자가 반드시 알아야 할 실무 지식
+
+* [느려진 서비스, 어디부터 봐야 할까](https://github.com/dnwls16071/Backend_Summary/wiki/%EB%8A%90%EB%A0%A4%EC%A7%84-%EC%84%9C%EB%B9%84%EC%8A%A4,-%EC%96%B4%EB%94%94%EB%B6%80%ED%84%B0-%EB%B4%90%EC%95%BC-%ED%95%A0%EA%B9%8C)
+* [성능을 좌우하는 DB 설계와 쿼리](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EC%84%B1%EB%8A%A5%EC%9D%84-%EC%A2%8C%EC%9A%B0%ED%95%98%EB%8A%94-DB-%EC%84%A4%EA%B3%84%EC%99%80-%EC%BF%BC%EB%A6%AC)
+* [외부 연동이 문제일 때 살펴봐야 할 것들](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EC%99%B8%EB%B6%80-%EC%97%B0%EB%8F%99%EC%9D%B4-%EB%AC%B8%EC%A0%9C%EC%9D%BC-%EB%95%8C-%EC%82%B4%ED%8E%B4%EB%B4%90%EC%95%BC-%ED%95%A0-%EA%B2%83%EB%93%A4)
+* [비동기 연동, 언제 어떻게 써야 할까](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%97%B0%EB%8F%99,-%EC%96%B8%EC%A0%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%8D%A8%EC%95%BC-%ED%95%A0%EA%B9%8C)
+* [동시성, 데이터가 꼬이기 전에 잡아야 한다](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EB%8F%99%EC%8B%9C%EC%84%B1,-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EA%BC%AC%EC%9D%B4%EA%B8%B0-%EC%A0%84%EC%97%90-%EC%9E%A1%EC%95%84%EC%95%BC-%ED%95%9C%EB%8B%A4)
+* [IO 병목, 어떻게 해결하지](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-IO-%EB%B3%91%EB%AA%A9,-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%B4%EA%B2%B0%ED%95%98%EC%A7%80)
+* [실무에서 꼭 필요한 보안 지식](https://github.com/dnwls16071/Backend_Summary/wiki/%EC%A3%BC%EB%8B%88%EC%96%B4-%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%8B%A4%EB%AC%B4-%EC%A7%80%EC%8B%9D-%E2%80%90-%EC%8B%A4%EB%AC%B4%EC%97%90%EC%84%9C-%EA%BC%AD-%ED%95%84%EC%9A%94%ED%95%9C-%EB%B3%B4%EC%95%88-%EC%A7%80%EC%8B%9D)
 
 ## 📖 QueryDsl
 
