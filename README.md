@@ -192,6 +192,7 @@
 * [Java ‐ 모던 자바: Java 8+](https://github.com/dnwls16071/Backend_Summary/wiki/Java-%E2%80%90-%EB%AA%A8%EB%8D%98-%EC%9E%90%EB%B0%94:-Java-8)
 * [Java ‐ Java 애플리케이션 성능 튜닝](https://github.com/dnwls16071/Backend_Summary/wiki/Java-%E2%80%90-Java-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%84%B1%EB%8A%A5-%ED%8A%9C%EB%8B%9D)
 * [Java - CAS](https://github.com/dnwls16071/Backend_Summary/wiki/Java-%E2%80%90-CAS)
+* [Java ‐ Virtual Thread](https://github.com/dnwls16071/Backend_Summary/wiki/Java-%E2%80%90-Virtual-Thread)
 
 ## 📖 Effective Java
 
