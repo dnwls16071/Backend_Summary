@@ -127,6 +127,7 @@
 * [Spring - ArgumentResolver과 Annotation](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-%E2%80%90-ArgumentResolver%EA%B3%BC-Annotation%EC%9C%BC%EB%A1%9C-%EC%BD%94%EB%93%9C-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81%ED%95%98%EA%B8%B0)
 * [Spring ‐ URL 인코딩](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-%E2%80%90-URL-%EC%9D%B8%EC%BD%94%EB%94%A9)
 * [Spring - 캐시(Cache) 추상화](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-%E2%80%90-Cache-%EC%B6%94%EC%83%81%ED%99%94)
+* [Spring ‐ Retry](https://github.com/dnwls16071/Backend_Summary/wiki/Spring-%E2%80%90-Retry)
 
 ## 📖 Spring Boot
 
