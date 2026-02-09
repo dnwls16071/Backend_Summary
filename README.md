@@ -290,8 +290,6 @@
 
 ## 📖 Redis
 
-* [Redis ‐ 동시성 이슈를 Redis로 해결하기 (1)](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EB%A5%BC-Redis%EB%A1%9C-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0-(1))
-* [Redis - 동시성 이슈를 Redis로 해결하기 (2)](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EB%A5%BC-Redis%EB%A1%9C-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0-(2))
 * [Redis ‐ Redis 기본](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Redis-%E2%80%90-Redis-%EA%B8%B0%EB%B3%B8)
 * [Redis ‐ Redis 사용법](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Redis-%E2%80%90-Redis-%EC%82%AC%EC%9A%A9%EB%B2%95)
 * [Redis ‐ Redis 캐싱 전략](https://github.com/dnwls16071/Backend_Study_TIL/wiki/Redis-%E2%80%90-Redis-%EC%BA%90%EC%8B%B1-%EC%A0%84%EB%9E%B5)
@@ -301,6 +299,16 @@
 * [Redis - Redis 자료구조](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-Redis-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0)
 * [Redis - Redis pub/sub과 streams](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-Redis-%EB%B0%9C%ED%96%89-&-%EA%B5%AC%EB%8F%85%EA%B3%BC-streams)
 * [Redis - Redis 서버 구성](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-Redis-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%84%B1)
+* [Redis - DB에 가해지는 쓰기 작업을 Redis로 줄이기](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-DB%EC%97%90-%EA%B0%80%ED%95%B4%EC%A7%80%EB%8A%94-%EC%93%B0%EA%B8%B0-%EC%9E%91%EC%97%85%EC%9D%84-Redis%EB%A1%9C-%EC%A4%84%EC%9D%B4%EA%B8%B0)
+* [Redis - 동시성 이슈 해결하기](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0)
+* [Redis ‐ 동시성 이슈를 Redis로 해결하기 (1)](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EB%A5%BC-Redis%EB%A1%9C-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0-(1))
+* [Redis - 동시성 이슈를 Redis로 해결하기 (2)](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%9D%B4%EC%8A%88%EB%A5%BC-Redis%EB%A1%9C-%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0-(2))
+* [Redis - 인기 검색어 구현](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-%EC%9D%B8%EA%B8%B0-%EA%B2%80%EC%83%89%EC%96%B4-%EA%B5%AC%ED%98%84)
+* [Redis - API Rate Limiting 제한](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-API-Rate-Limiting-%EC%A0%9C%ED%95%9C)
+* [Redis - Geospatial](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-Geospatial)
+* [Redis - DAU 카운팅 수집하기](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-DAU-%EC%B9%B4%EC%9A%B4%ED%8C%85-%EC%88%98%EC%A7%91%ED%95%98%EA%B8%B0)
+* [Redis - 세션 관리 저장 용도](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-%EC%84%B8%EC%85%98-%EA%B4%80%EB%A6%AC-%EC%A0%80%EC%9E%A5-%EC%9A%A9%EB%8F%84)
+* [Redis - Embedded Redis Server with Spring Boot Test](https://github.com/dnwls16071/Backend_Summary/wiki/Redis-%E2%80%90-Embedded-Redis-Server-with-Spring-Boot-Test)
 
 ## 📖 MySQL
 
